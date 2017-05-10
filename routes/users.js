@@ -3,7 +3,7 @@ var router = express.Router();
 const User = require('../models/index').User;
 const Review = require('../models/index').Review;
 const UserTagging = require('../models/index').UserTagging;
-const Tag = require('../models/index').Tag;
+// const Tag = require('../models/index').Tag;
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {

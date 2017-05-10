@@ -20,6 +20,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         User.hasMany(models.Review, { as: 'reviewer', foreignKey: 'reviewerId' });
         User.hasMany(models.Review, { as: 'reviewed', foreignKey: 'reviewedId' });
+        User.hasMany(models.Project, { as: 'owner', foreignKey: 'ownerId' });
         User.belongsToMany(models.Tag, { as: 'Tags',
                                          through: 'UserTaggings',
                                          foreignKey: 'userId',

@@ -10,7 +10,6 @@ router.get('/', function(req, res, next) {
     .then(function(developers) {
       res.render('developers/index', { developers: developers });
     });
-  // res.render('developers/index', { title: 'Web Dev Link' });
 });
 
 module.exports = router;

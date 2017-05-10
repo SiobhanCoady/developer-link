@@ -2,4 +2,18 @@
 
   <h1>Browse Projects</h1>
 
+  <ul class="projects-list">
+      <% for (let project of projects) { %>
+        <li>
+          <a href="/users/<%= project.ownerId %>">
+            <%= project.title %>
+          </a>
+          <p><%= project.description %></p>
+          <p><%= project.deadline %></p>
+          <p><%= project.github %></p>
+          <p><%= project.owner.orgName %></p>
+        </li>
+      <% } %>
+    </ul>
+
 <%- include('../partials/footer') %>

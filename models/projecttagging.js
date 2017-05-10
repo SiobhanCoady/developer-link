@@ -6,7 +6,8 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        ProjectTagging.belongsTo(models.Project, { foreignKey: 'projectId' });
+        ProjectTagging.belongsTo(models.Tag, { foreignKey: 'tagId' });
       }
     }
   });
