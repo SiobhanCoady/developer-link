@@ -8,6 +8,20 @@
   <p>GitHub: <%= user.github %></p>
   <p>LinkedIn: <%= user.linkedin %></p>
   <p>Country: <%= user.country %></p>
+  <hr>
+
+  <h3>Reviews</h3>
+  <ul class="reviews-list">
+    <% for (let review of reviews) { %>
+      <li>
+        <p><%= review.body %></p>
+        <p><%= review.reviewer.firstName %> <%= review.reviewer.lastName %></p>
+        <p><strong>Rating: </strong><%= review.rating %></p>
+        <p><strong>Created At: </strong><%= review.createdAt %></p>
+        <hr>
+      </li>
+    <% } %>
+  </ul>
 
 
 <%- include('../partials/footer') %>
