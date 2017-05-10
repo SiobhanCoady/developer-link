@@ -2,4 +2,14 @@
 
   <h1>Browse Developers</h1>
 
+  <ul class="developers-list">
+      <% for (let developer of developers) { %>
+        <li>
+          <a href="/users/<%= developer.id %>">
+            <%= developer.firstName %> <%= developer.lastName %>
+          </a>
+        </li>
+      <% } %>
+    </ul>
+
 <%- include('../partials/footer') %>
