@@ -1,37 +1,53 @@
 <%- include('../partials/header') %>
 
-  <h1><%= user.firstName %> <%= user.lastName %></h1>
+  <%# SHOW DEVELOPER %>
+  <% if (user.userType === 'developer') { %>
+    <h1><%= user.firstName %> <%= user.lastName %></h1>
 
-  <p><%= user.description %></p>
-  <p>Email: <%= user.email %></p>
-  <p>Website: <%= user.website %></p>
-  <p>GitHub: <%= user.github %></p>
-  <p>LinkedIn: <%= user.linkedin %></p>
-  <p>Country: <%= user.country %></p>
+    <p><%= user.description %></p>
+    <p>Email: <%= user.email %></p>
+    <p>Website: <%= user.website %></p>
+    <p>GitHub: <%= user.github %></p>
+    <p>LinkedIn: <%= user.linkedin %></p>
+    <p>Country: <%= user.country %></p>
 
-  <p>Charity Types:
-    <% for (let tag of tags) { %>
-      <% if (tag.tagType === 'charityType') { %>
-        <span><%= tag.name %></span>
+    <p>Charity Types:
+      <% for (let tag of tags) { %>
+        <% if (tag.tagType === 'charityType') { %>
+          <span><%= tag.name %></span>
+        <% } %>
       <% } %>
-    <% } %>
-  </p>
+    </p>
 
-  <p>Technologies:
-    <% for (let tag of tags) { %>
-      <% if (tag.tagType === 'technology') { %>
-        <span><%= tag.name %></span>
+    <p>Technologies:
+      <% for (let tag of tags) { %>
+        <% if (tag.tagType === 'technology') { %>
+          <span><%= tag.name %></span>
+        <% } %>
       <% } %>
-    <% } %>
-  </p>
+    </p>
 
-  <p>Languages:
-    <% for (let tag of tags) { %>
-      <% if (tag.tagType === 'language') { %>
-        <span><%= tag.name %></span>
+    <p>Languages:
+      <% for (let tag of tags) { %>
+        <% if (tag.tagType === 'language') { %>
+          <span><%= tag.name %></span>
+        <% } %>
       <% } %>
-    <% } %>
-  </p>
+    </p>
+
+  <%# SHOW NONPROFIT %>
+  <% } else { %>
+    <h1><%= user.orgName %></h1>
+
+    <p><%= user.description %></p>
+    <p>Charity Type: <%= charity.name %></p>
+    <p>Email: <%= user.email %></p>
+    <p>Website: <%= user.website %></p>
+    <p>Country: <%= user.country %></p>
+
+  <% } %>
+
+
   <hr>
 
   <h3>Reviews</h3>

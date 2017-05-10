@@ -5,13 +5,13 @@
   <ul class="projects-list">
       <% for (let project of projects) { %>
         <li>
-          <a href="/users/<%= project.ownerId %>">
-            <%= project.title %>
-          </a>
+          <%= project.title %>
           <p><%= project.description %></p>
           <p><%= project.deadline %></p>
           <p><%= project.github %></p>
-          <p><%= project.owner.orgName %></p>
+          <a href="/users/<%= project.ownerId %>">
+            <p><%= project.owner.orgName %></p>
+          </a>
         </li>
       <% } %>
     </ul>
