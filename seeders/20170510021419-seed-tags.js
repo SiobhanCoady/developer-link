@@ -1,6 +1,6 @@
 'use strict';
 const M = require('../models/index');
-const User = M.User;
+const Tags = M.Tags;
 const faker = require('faker');
 
 const users = Array

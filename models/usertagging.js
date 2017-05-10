@@ -1,7 +1,7 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var ProjectTaggings = sequelize.define('ProjectTaggings', {
-    projectId: DataTypes.INTEGER,
+  var UserTagging = sequelize.define('UserTagging', {
+    userId: DataTypes.INTEGER,
     tagId: DataTypes.INTEGER
   }, {
     classMethods: {
@@ -10,5 +10,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  return ProjectTaggings;
+  return UserTagging;
 };

@@ -8,10 +8,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      first_name: {
+      firstName: {
         type: Sequelize.STRING
       },
-      last_name: {
+      lastName: {
         type: Sequelize.STRING
       },
       email: {
@@ -35,7 +35,7 @@ module.exports = {
       description: {
         type: Sequelize.TEXT
       },
-      user_type: {
+      userType: {
         type: Sequelize.STRING
       },
       github: {
@@ -44,10 +44,10 @@ module.exports = {
       linkedin: {
         type: Sequelize.STRING
       },
-      org_name: {
+      orgName: {
         type: Sequelize.STRING
       },
-      charity_type: {
+      charityType: {
         type: Sequelize.INTEGER
       },
       createdAt: {
