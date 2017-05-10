@@ -6,7 +6,8 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        // UserTagging.belongsTo(models.User, { as: 'tag' });
+        UserTagging.belongsTo(models.Tag, { as: 'tag' });
       }
     }
   });

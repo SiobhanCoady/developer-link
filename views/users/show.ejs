@@ -8,6 +8,10 @@
   <p>GitHub: <%= user.github %></p>
   <p>LinkedIn: <%= user.linkedin %></p>
   <p>Country: <%= user.country %></p>
+
+  <% for (let tag of tags) { %>
+    <p><%= tag.tagId %></p>
+  <% } %>
   <hr>
 
   <h3>Reviews</h3>

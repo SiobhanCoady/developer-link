@@ -6,7 +6,11 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        Tag.hasMany(models.UserTagging, { as: 'tag', foreignKey: 'tagId' });
+        Tag.belongsToMany(models.User, { as: 'tag',
+                                         through: models.UserTagging,
+                                         foreignKey: 'tagId'
+                                       });
       }
     }
   });

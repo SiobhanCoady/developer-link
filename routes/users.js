@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 const User = require('../models/index').User;
 const Review = require('../models/index').Review;
+const UserTagging = require('../models/index').UserTagging;
+const Tag = require('../models/index').Tag;
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -22,11 +24,14 @@ router.get('/:id', function(req, res) {
           include: [
             { model: User, as: 'reviewer' }
           ]
+        }),
+        UserTagging.findAll({
+          where: { userId: user.id }
         })
       ])
     })
-    .then(function([user, reviews]) {
-      res.render('users/show', {user: user, reviews: reviews})
+    .then(function([user, reviews, tags]) {
+      res.render('users/show', {user: user, reviews: reviews, tags: tags})
     })
 });
 
