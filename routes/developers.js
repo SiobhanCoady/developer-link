@@ -8,9 +8,7 @@ router.get('/', function(req, res, next) {
       where: {userType: 'developer'},
       order: [['createdAt', 'DESC']]})
     .then(function(developers) {
-      res.render('developers/index', {title: 'Web Dev Link',
-                                      developers: developers
-                                      });
+      res.render('developers/index', { developers: developers });
     });
   // res.render('developers/index', { title: 'Web Dev Link' });
 });
