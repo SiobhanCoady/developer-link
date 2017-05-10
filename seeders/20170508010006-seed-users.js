@@ -7,6 +7,13 @@ const users = Array
   .from({length: 10})
   .map(function() {
     let num = Math.floor(Math.random() * 10) + 1
+    let charities = [ 'Animal',
+                      'Environmental',
+                      'International NGO',
+                      'Health',
+                      'Education',
+                      'Arts and Culture'
+                    ]
     return User.create({
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
@@ -21,7 +28,7 @@ const users = Array
       github: faker.internet.url(),
       linkedin: faker.internet.url(),
       orgName: faker.company.companyName(),
-      charityType: Math.floor(Math.random() * 6) + 1
+      charityType: charities[Math.floor(Math.random() * charities.length)]
     })
     .catch(function(error) { console.log('Duplicate user') });
   });

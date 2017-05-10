@@ -36,7 +36,7 @@ module.exports = {
         type: Sequelize.TEXT
       },
       userType: {
-        type: Sequelize.STRING
+        type: Sequelize.ENUM('developer', 'nonprofit')
       },
       github: {
         type: Sequelize.STRING
@@ -48,7 +48,13 @@ module.exports = {
         type: Sequelize.STRING
       },
       charityType: {
-        type: Sequelize.ENUM('Animal', 'Environmental')
+        type: Sequelize.ENUM( 'Animal',
+                              'Environmental',
+                              'International NGO',
+                              'Health',
+                              'Education',
+                              'Arts and Culture'
+                            )
       },
       createdAt: {
         allowNull: false,

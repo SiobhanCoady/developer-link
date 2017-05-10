@@ -10,11 +10,17 @@ module.exports = function(sequelize, DataTypes) {
     province: DataTypes.STRING,
     country: DataTypes.STRING,
     description: DataTypes.TEXT,
-    userType: DataTypes.STRING,
+    userType: DataTypes.ENUM('developer', 'nonprofit'),
     github: DataTypes.STRING,
     linkedin: DataTypes.STRING,
     orgName: DataTypes.STRING,
-    charityType: DataTypes.INTEGER
+    charityType: DataTypes.ENUM( 'Animal',
+                          'Environmental',
+                          'International NGO',
+                          'Health',
+                          'Education',
+                          'Arts and Culture'
+                        )
   }, {
     classMethods: {
       associate: function(models) {
