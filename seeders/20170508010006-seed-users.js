@@ -6,10 +6,10 @@ const faker = require('faker');
 const users = Array
   .from({length: 10})
   .map(function() {
-    let num = Math.floor(Math.random() * 2)
+    let num = Math.floor(Math.random() * 10) + 1
     return User.create({
-      first_name: faker.name.firstName(),
-      last_name: faker.name.lastName(),
+      firstName: faker.name.firstName(),
+      lastName: faker.name.lastName(),
       email: faker.internet.email(),
       password: '12345678',
       website: faker.internet.domainName(),
@@ -17,11 +17,11 @@ const users = Array
       province: faker.address.stateAbbr(),
       country: faker.address.country(),
       description: faker.hacker.phrase(),
-      user_type: num > 1 ? 'developer' : 'nonprofit',
+      userType: num > 5 ? 'developer' : 'nonprofit',
       github: faker.internet.url(),
       linkedin: faker.internet.url(),
-      org_name: faker.company.companyName(),
-      charity_type: DataTypes.INTEGER
+      orgName: faker.company.companyName(),
+      charityType: Math.floor(Math.random() * 6) + 1
     })
     .catch(function(error) { console.log('Duplicate user') });
   });
