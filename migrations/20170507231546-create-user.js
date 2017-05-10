@@ -38,6 +38,18 @@ module.exports = {
       user_type: {
         type: Sequelize.STRING
       },
+      github: {
+        type: Sequelize.STRING
+      },
+      linkedin: {
+        type: Sequelize.STRING
+      },
+      org_name: {
+        type: Sequelize.STRING
+      },
+      charity_type: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

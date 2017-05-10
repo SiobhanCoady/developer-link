@@ -10,7 +10,11 @@ module.exports = function(sequelize, DataTypes) {
     province: DataTypes.STRING,
     country: DataTypes.STRING,
     description: DataTypes.TEXT,
-    user_type: DataTypes.STRING
+    user_type: DataTypes.STRING,
+    github: DataTypes.STRING,
+    linkedin: DataTypes.STRING,
+    org_name: DataTypes.STRING,
+    charity_type: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
