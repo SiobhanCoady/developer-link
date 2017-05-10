@@ -9,6 +9,23 @@
           <p><%= project.description %></p>
           <p><%= project.deadline %></p>
           <p><%= project.github %></p>
+
+          <p>Technologies:
+            <% for (let tag of project.Tags) { %>
+              <% if (tag.tagType === 'technology') { %>
+                <span><%= tag.name %></span>
+              <% } %>
+            <% } %>
+          </p>
+
+          <p>Languages:
+            <% for (let tag of project.Tags) { %>
+              <% if (tag.tagType === 'language') { %>
+                <span><%= tag.name %></span>
+              <% } %>
+            <% } %>
+          </p>
+
           <a href="/users/<%= project.ownerId %>">
             <p><%= project.owner.orgName %></p>
           </a>

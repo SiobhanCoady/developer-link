@@ -10,6 +10,11 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         Project.belongsTo(models.User, { as: 'owner' });
+        Project.belongsToMany(models.Tag, { as: 'Tags',
+                                         through: 'ProjectTaggings',
+                                         foreignKey: 'projectId',
+                                         otherKey: 'tagId'
+                                       });
       }
     }
   });

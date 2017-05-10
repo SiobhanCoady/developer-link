@@ -12,6 +12,10 @@ module.exports = function(sequelize, DataTypes) {
                                          through: models.UserTagging,
                                          foreignKey: 'tagId'
                                        });
+        Tag.belongsToMany(models.Project, {  as: 'TaggedProject',
+                                             through: models.ProjectTagging,
+                                             foreignKey: 'tagId'
+                                           });
       }
     }
   });

@@ -6,7 +6,7 @@ const projectTaggings = Array
   .from({length: 100})
   .map(function() {
     return ProjectTagging.create({
-      userId: Math.floor(Math.random() * 10) + 1,
+      projectId: Math.floor(Math.random() * 10) + 1,
       tagId: Math.floor(Math.random() * 40) + 1
     })
     .catch(function(error) { console.log('Error creating project tag') });

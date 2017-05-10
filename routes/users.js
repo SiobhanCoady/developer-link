@@ -3,7 +3,7 @@ var router = express.Router();
 const User = require('../models/index').User;
 const Review = require('../models/index').Review;
 const UserTagging = require('../models/index').UserTagging;
-const Tag = require('../models/index').Tag;
+const Project = require('../models/index').Project;
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -26,11 +26,20 @@ router.get('/:id', function(req, res) {
           ]
         }),
         user.getTags(),
-        user.getCharity()
+        user.getCharity(),
+        Project.findAll({
+          where: { ownerId: user.id },
+          order: [['createdAt', 'DESC']]
+        })
       ])
     })
-    .then(function([user, reviews, tags, charity]) {
-      res.render('users/show', {user: user, reviews: reviews, tags: tags, charity: charity})
+    .then(function([user, reviews, tags, charity, projects]) {
+      res.render('users/show', {user: user,
+                                reviews: reviews,
+                                tags: tags,
+                                charity: charity,
+                                projects: projects
+                               })
     })
 });
 
