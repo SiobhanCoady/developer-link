@@ -18,6 +18,16 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
+        User.belongsToMany(models.Tag, { as: 'Charities',
+                                         scope: {
+                                           tagType: 'charityType'
+                                         },
+                                         through: {
+                                           model: 'UserTaggings'
+                                          },
+                                         foreignKey: 'userId',
+                                         otherKey: 'tagId'
+                                       });
         User.hasMany(models.Review, { as: 'reviewer', foreignKey: 'reviewerId' });
         User.hasMany(models.Review, { as: 'reviewed', foreignKey: 'reviewedId' });
         User.hasMany(models.Project, { as: 'owner', foreignKey: 'ownerId' });

@@ -48,7 +48,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       charityType: {
-        type: Sequelize.INTEGER
+        type: Sequelize.ENUM('Animal', 'Environmental')
       },
       createdAt: {
         allowNull: false,
