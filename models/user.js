@@ -18,7 +18,8 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        User.hasMany(models.Review, { as: 'reviewer', foreignKey: 'reviewerId' });
+        User.hasMany(models.Review, { as: 'reviewed', foreignKey: 'reviewedId' });
       }
     }
   });
