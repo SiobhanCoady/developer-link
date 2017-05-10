@@ -9,9 +9,29 @@
   <p>LinkedIn: <%= user.linkedin %></p>
   <p>Country: <%= user.country %></p>
 
-  <% for (let tag of tags) { %>
-    <p><%= tag.tagId %></p>
-  <% } %>
+  <p>Charity Types:
+    <% for (let tag of tags) { %>
+      <% if (tag.tagType === 'charityType') { %>
+        <span><%= tag.name %></span>
+      <% } %>
+    <% } %>
+  </p>
+
+  <p>Technologies:
+    <% for (let tag of tags) { %>
+      <% if (tag.tagType === 'technology') { %>
+        <span><%= tag.name %></span>
+      <% } %>
+    <% } %>
+  </p>
+
+  <p>Languages:
+    <% for (let tag of tags) { %>
+      <% if (tag.tagType === 'language') { %>
+        <span><%= tag.name %></span>
+      <% } %>
+    <% } %>
+  </p>
   <hr>
 
   <h3>Reviews</h3>

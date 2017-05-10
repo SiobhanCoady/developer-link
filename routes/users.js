@@ -25,9 +25,7 @@ router.get('/:id', function(req, res) {
             { model: User, as: 'reviewer' }
           ]
         }),
-        UserTagging.findAll({
-          where: { userId: user.id }
-        })
+        user.getTags()
       ])
     })
     .then(function([user, reviews, tags]) {
