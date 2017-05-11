@@ -2,14 +2,13 @@
 
   <h1>Browse Developers</h1>
 
-  <ul class="developers-list">
-      <% for (let developer of developers) { %>
-        <li>
-          <a href="/users/<%= developer.id %>">
-            <%= developer.firstName %> <%= developer.lastName %>
-          </a>
-        </li>
-      <% } %>
-    </ul>
+  <ul class="collapsible popout developers-list" data-collapsible="accordion">
+    <% for (let developer of developers) { %>
+      <li>
+        <div class="collapsible-header"><i class="material-icons">filter_drama</i><%= developer.firstName %> <%= developer.lastName %></div>
+        <div class="collapsible-body"><span><%= developer.description %></span></div>
+      </li>
+    <% } %>
+  </ul>
 
 <%- include('../partials/footer') %>

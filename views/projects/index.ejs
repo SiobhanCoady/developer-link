@@ -2,11 +2,15 @@
 
   <h1>Browse Projects</h1>
 
-  <ul class="projects-list">
-      <% for (let project of projects) { %>
-        <li>
-          <h3><%= project.title %></h3>
-          <p><%= project.description %></p>
+  <ul class="collapsible popout projects-list" data-collapsible="accordion">
+    <% for (let project of projects) { %>
+      <li>
+        <div class="collapsible-header">
+          <i class="material-icons">filter_drama</i>
+          <%= project.title %>
+        </div>
+        <div class="collapsible-body">
+          <span><%= project.description %></span>
           <p>Deadline: <%= project.deadline %></p>
           <p>GitHub: <%= project.github %></p>
 
@@ -35,9 +39,11 @@
               <%= project.owner.orgName %>
             </a>
           </p>
-        </li>
-        <hr>
-      <% } %>
-    </ul>
+
+        </div>
+      </li>
+    <% } %>
+
+
 
 <%- include('../partials/footer') %>
