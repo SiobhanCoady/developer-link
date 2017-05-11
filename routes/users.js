@@ -4,11 +4,17 @@ const User = require('../models/index').User;
 const Review = require('../models/index').Review;
 const UserTagging = require('../models/index').UserTagging;
 const Project = require('../models/index').Project;
+// const UserMaterializedView = require('../models/index').UserMaterializedView;
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
+
+// router.get('/search', function(req, res, next) {
+//   UserMaterializedView.searchByText(params)
+//   res.send
+// });
 
 // Show user
 router.get('/:id', function(req, res) {

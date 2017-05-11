@@ -9,10 +9,8 @@ router.get('/', function(req, res, next) {
     .findAll({
       order: [['createdAt', 'DESC']],
       include: [
-        {model: User, as: 'owner', include: [
-          {model: Tag, as: 'Tags', where: {tagType: 'charityType'}}
-        ]},
-        {model: Tag, as: 'Tags', where: {tagType: ['technology', 'language']}}
+        {model: User, as: 'owner'},
+        {model: Tag, as: 'Tags'}
       ]
     })
     .then(function(projects) {

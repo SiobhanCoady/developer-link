@@ -14,7 +14,7 @@
     <p>Charity Types:
       <% for (let tag of tags) { %>
         <% if (tag.tagType === 'charityType') { %>
-          <span><%= tag.name %></span>
+          <div class="chip"><%= tag.name %></div>
         <% } %>
       <% } %>
     </p>
@@ -22,7 +22,7 @@
     <p>Technologies:
       <% for (let tag of tags) { %>
         <% if (tag.tagType === 'technology') { %>
-          <span><%= tag.name %></span>
+          <div class="chip"><%= tag.name %></div>
         <% } %>
       <% } %>
     </p>
@@ -30,7 +30,7 @@
     <p>Languages:
       <% for (let tag of tags) { %>
         <% if (tag.tagType === 'language') { %>
-          <span><%= tag.name %></span>
+          <div class="chip"><%= tag.name %></div>
         <% } %>
       <% } %>
     </p>

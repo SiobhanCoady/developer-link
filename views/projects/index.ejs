@@ -2,11 +2,11 @@
 
   <h1>Browse Projects</h1>
 
-  <ul class="collapsible popout projects-list" data-collapsible="accordion">
+  <ul class="collapsible popout projects-list" data-collapsible="expandable">
     <% for (let project of projects) { %>
       <li>
         <div class="collapsible-header">
-          <i class="material-icons">filter_drama</i>
+          <i class="material-icons">web</i>
           <%= project.title %>
         </div>
         <div class="collapsible-body">
@@ -15,13 +15,13 @@
           <p>GitHub: <%= project.github %></p>
 
           <p>Charity Type:
-            <span><%= project.owner.Tags[0].name %></span>
+            <span><%= project.owner.charityType %></span>
           </p>
 
           <p>Technologies:
             <% for (let tag of project.Tags) { %>
               <% if (tag.tagType === 'technology') { %>
-                <span><%= tag.name %></span>
+                <div class="chip"><%= tag.name %></div>
               <% } %>
             <% } %>
           </p>
@@ -29,16 +29,20 @@
           <p>Languages:
             <% for (let tag of project.Tags) { %>
               <% if (tag.tagType === 'language') { %>
-                <span><%= tag.name %></span>
+                <div class="chip"><%= tag.name %></div>
               <% } %>
             <% } %>
           </p>
 
           <p>Non-profit:
-            <a href="/users/<%= project.ownerId %>">
               <%= project.owner.orgName %>
-            </a>
           </p>
+
+          <div class="right-align">
+            <a class="waves-effect waves-teal btn-flat" href="/users/<%= project.ownerId %>">
+              Profile
+            </a>
+          </div>
 
         </div>
       </li>
