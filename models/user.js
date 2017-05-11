@@ -19,7 +19,8 @@ module.exports = function(sequelize, DataTypes) {
                           'International NGO',
                           'Health',
                           'Education',
-                          'Arts and Culture'
+                          'Arts and Culture',
+                          ''
                         )
   }, {
     classMethods: {

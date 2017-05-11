@@ -3,6 +3,8 @@ const M = require('../models/index');
 const User = M.User;
 const faker = require('faker');
 
+
+
 const users = Array
   .from({length: 10})
   .map(function() {
@@ -14,6 +16,8 @@ const users = Array
                       'Education',
                       'Arts and Culture'
                     ]
+    const determinedUserType = num > 5 ? 'developer' : 'nonprofit'
+
     return User.create({
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
@@ -24,11 +28,11 @@ const users = Array
       province: faker.address.stateAbbr(),
       country: faker.address.country(),
       description: faker.hacker.phrase(),
-      userType: num > 5 ? 'developer' : 'nonprofit',
-      github: faker.internet.url(),
-      linkedin: faker.internet.url(),
-      orgName: faker.company.companyName(),
-      charityType: charities[Math.floor(Math.random() * charities.length)]
+      userType: determinedUserType,
+      github: (determinedUserType === 'developer' ? faker.internet.url() : ''),
+      linkedin: (determinedUserType === 'developer' ? faker.internet.url() : ''),
+      orgName: (determinedUserType === 'nonprofit' ? faker.company.companyName() : ''),
+      charityType: (determinedUserType === 'nonprofit' ? charities[Math.floor(Math.random() * charities.length)] : '')
     })
     .catch(function(error) { console.log('Duplicate user') });
   });

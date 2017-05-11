@@ -53,7 +53,8 @@ module.exports = {
                               'International NGO',
                               'Health',
                               'Education',
-                              'Arts and Culture'
+                              'Arts and Culture',
+                              ''
                             )
       },
       createdAt: {
