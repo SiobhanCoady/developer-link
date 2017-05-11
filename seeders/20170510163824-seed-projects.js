@@ -14,7 +14,6 @@ const createProjects = (possibleOwners) => {
     return Array
       .from({length: 20})
       .map(function() {
-        console.log(">>>>>>>>>>>>>>>LOGGING");
         return Project.create({
           title: `${faker.hacker.adjective()} ${faker.hacker.noun()}`,
           description: faker.hacker.phrase(),
@@ -28,11 +27,9 @@ const createProjects = (possibleOwners) => {
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    console.log(">>>>>>>>>>>>BEFORE OWNERS");
     const possibleOwners = User.findAll(
                             { where: { userType: 'nonprofit' } }
                           ).then((users) => {
-                            console.log(">>>>>>>>>>>>>PROMISE");
                             return Promise.all(createProjects(users));
                           });
     return possibleOwners;
