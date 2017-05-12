@@ -23,6 +23,11 @@ module.exports = function(sequelize, DataTypes) {
                           ''
                         )
   }, {
+    customHooks: {
+        afterSave: (models) => {
+          models.UserMaterializedView.refresh();
+        }
+    },
     classMethods: {
       associate: function(models) {
         User.belongsToMany(models.Tag, { as: 'Charities',
