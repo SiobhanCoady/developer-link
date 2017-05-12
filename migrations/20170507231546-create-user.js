@@ -32,6 +32,12 @@ module.exports = {
       country: {
         type: Sequelize.STRING
       },
+      latitude: {
+        type: Sequelize.FLOAT
+      },
+      longitude: {
+        type: Sequelize.FLOAT
+      },
       description: {
         type: Sequelize.TEXT
       },

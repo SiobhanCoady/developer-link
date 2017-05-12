@@ -9,6 +9,8 @@ module.exports = function(sequelize, DataTypes) {
     city: DataTypes.STRING,
     province: DataTypes.STRING,
     country: DataTypes.STRING,
+    latitude: DataTypes.FLOAT,
+    longitude: DataTypes.FLOAT,
     description: DataTypes.TEXT,
     userType: DataTypes.ENUM('developer', 'nonprofit'),
     github: DataTypes.STRING,

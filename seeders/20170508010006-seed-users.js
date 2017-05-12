@@ -2,23 +2,23 @@
 const M = require('../models/index');
 const User = M.User;
 const faker = require('faker');
+const geocoder = require('geocoder');
 
-
+let charities = [ 'Animal',
+                  'Environmental',
+                  'International NGO',
+                  'Health',
+                  'Education',
+                  'Arts and Culture'
+                ]
 
 const users = Array
-  .from({length: 10})
+  .from({length: 1})
   .map(function() {
     let num = Math.floor(Math.random() * 10) + 1
-    let charities = [ 'Animal',
-                      'Environmental',
-                      'International NGO',
-                      'Health',
-                      'Education',
-                      'Arts and Culture'
-                    ]
     const determinedUserType = num > 5 ? 'developer' : 'nonprofit'
 
-    return User.create({
+    let u = User.create({
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
       email: faker.internet.email(),
@@ -33,8 +33,17 @@ const users = Array
       linkedin: (determinedUserType === 'developer' ? faker.internet.url() : ''),
       orgName: (determinedUserType === 'nonprofit' ? faker.company.companyName() : ''),
       charityType: (determinedUserType === 'nonprofit' ? charities[Math.floor(Math.random() * charities.length)] : '')
+    }).then(function(user) {
+      return geocoder.geocode(user.country, function ( err, data ) {
+        user.updateAttributes({
+          latitude: data.results[0].geometry.location.lat,
+          longitude: data.results[0].geometry.location.lng
+
+        });
+        return user;
+      })
     })
-    .catch(function(error) { console.log('Duplicate user') });
+    return u;
   });
 
 

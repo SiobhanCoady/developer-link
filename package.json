@@ -15,6 +15,7 @@
     "ejs": "~2.5.6",
     "express": "~4.15.2",
     "faker": "^4.1.0",
+    "geocoder": "^0.2.3",
     "materialize-css": "^0.98.2",
     "method-override": "^2.3.8",
     "morgan": "~1.8.1",
