@@ -29,7 +29,7 @@
           <li><a href="/developers">Browse Developers</a></li>
           <li><a href="/projects">Browse Projects</a></li>
           <li><a href="/sessions/new">Sign In</a></li>
-          <li><%#= if (currentUser) { currentUser.firstName } %></li>
+          <li><%= if (currentUser) { currentUser.firstName } %></li>
           <!-- Dropdown Trigger -->
           <%# if (currentUser) { %>
             <%# <li><a class="dropdown-button" href="#!" data-activates="dropdown1">User Options<i class="material-icons right">arrow_drop_down</i></a></li>%>

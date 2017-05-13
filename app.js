@@ -97,7 +97,7 @@ const User = require("./models/index").User;
 // });
 
 // Use local strategy to create user account
-passport.use(new LocalStrategy(
+passport.use(new LocalStrategy({usernameField: 'email'},
   function(email, password, done) {
     User.find({ where: { email: email }}).then(function(user) {
       if (!user) {
@@ -130,5 +130,10 @@ app.use(function(req, res, next) {
   res.locals.currentUser = req.user || null;
   next();
 });
+
+// const currentUser = User.find({where: {id: 66}}).then(function(user) {
+//   return user
+// });
+// console.log(currentUser);
 
 module.exports = app;
