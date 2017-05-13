@@ -31,6 +31,23 @@ module.exports = function(sequelize, DataTypes) {
         }
     },
     classMethods: {
+      validPassword: function(password) {
+        return this.password === password;
+      },
+      // passportVerify: function(email, password, done) {
+      //   return User
+      //           .find({ where: { email: email } })
+      //           .then(function(user) {
+      //             if (err) { return done(err); }
+      //             if (!user) {
+      //               return done(null, false, { message: 'Incorrect email.' });
+      //             }
+      //             if (!user.validPassword(password)) {
+      //               return done(null, false, { message: 'Incorrect password.' });
+      //             }
+      //             return done(null, user);
+      //           });
+      // },
       associate: function(models) {
         User.belongsToMany(models.Tag, { as: 'Charities',
                                          scope: {

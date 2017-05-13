@@ -16,6 +16,51 @@ router.get('/', function(req, res, next) {
 //   res.send
 // });
 
+router.get('/new', function(req, res, next){
+  const user = User.build();
+  res.render('users/new', {errors: [], user: user});
+});
+
+router.post('/', function(req, res, next){
+  const {firstName, lastName, email, password, userType} = req.body;
+  User.create({
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    password: password,
+    userType: userType
+    })
+    .then(function(user) {
+      req.login(user, function(err){
+        if(err) {
+          req.flash('error', 'Something went wrong');
+          res.redirect('/sessions/new');
+        } else {
+          req.flash('info', 'You\'re logged in');
+          res.redirect('/developers');
+        }
+      })
+    })
+    .catch(function(err) {
+      res.render('users/new', {errors: err});
+    })
+  // user.save(function(err, usr){
+  //   if(err) {
+  //     res.render('users/new', {errors: err, user: user});
+  //   } else {
+  //     req.login(usr, function(err){
+  //       if(err) {
+  //         req.flash('error', 'Something went wrong');
+  //         res.redirect('/sessions/new');
+  //       } else {
+  //         req.flash('info', 'You\'re logged in');
+  //         res.redirect('/');
+  //       }
+  //     });
+  //   }
+  // });
+});
+
 // Show user
 router.get('/:id', function(req, res) {
   const id = req.params.id;

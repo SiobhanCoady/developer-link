@@ -5,14 +5,24 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
+var Sequelize = require('sequelize'),
+	passportLocalSequelize = require('passport-local-sequelize');
+
+var mydb = new Sequelize('fp_dev', 'myuser', 'mypass', {
+	dialect: 'postgres',
+	storage: 'fp_dev.postgres'
+});
+
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var developers = require('./routes/developers');
 var projects = require('./routes/projects');
+var sessions = require('./routes/sessions');
 
 var app = express();
 
@@ -31,6 +41,13 @@ app.use(passport.session());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(methodOverride(function (req, res) {
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    var method = req.body._method
+    delete req.body._method
+    return method
+  }
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash());
@@ -45,6 +62,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/developers', developers);
 app.use('/projects', projects);
+app.use('/sessions', sessions);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -62,6 +80,55 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+// passport setup
+const User = require("./models/index").User;
+// passport.use(new LocalStrategy({usernameField: 'email'}, User.passportVerify));
+
+// passport.serializeUser(function(user, done) {
+//   done(null, user.id);
+// });
+//
+// passport.deserializeUser(function(id, done) {
+//   User.findById(id, function(err, user) {
+//     done(err, user);
+//   });
+// });
+
+// Use local strategy to create user account
+passport.use(new LocalStrategy(
+  function(email, password, done) {
+    User.find({ where: { email: email }}).then(function(user) {
+      if (!user) {
+        done(null, false, { message: 'Unknown user' });
+      } else if (password != user.password) {
+        done(null, false, { message: 'Invalid password'});
+      } else {
+        done(null, user);
+      }
+    }).catch(function(err){
+      done(err);
+    });
+  }
+));
+
+// Serialize sessions
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.find({where: {id: id}}).then(function(user){
+    done(null, user);
+  }).catch(function(err){
+    done(err, null);
+  });
+});
+
+app.use(function(req, res, next) {
+  res.locals.currentUser = req.user || null;
+  next();
 });
 
 module.exports = app;

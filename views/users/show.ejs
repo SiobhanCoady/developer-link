@@ -1,5 +1,6 @@
 <%- include('../partials/header') %>
 
+<div class="container">
   <%# SHOW DEVELOPER %>
   <% if (user.userType === 'developer') { %>
     <h1><%= user.firstName %> <%= user.lastName %></h1>
@@ -74,6 +75,6 @@
       </li>
     <% } %>
   </ul>
-
+</div>
 
 <%- include('../partials/footer') %>
