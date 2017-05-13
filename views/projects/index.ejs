@@ -16,7 +16,9 @@
           <p>GitHub: <%= project.github %></p>
 
           <p>Charity Type:
-            <span><%= project.owner.charityType %></span>
+            <% if (project.owner) { %>
+              <span><%= project.owner.charityType %></span>
+            <% } %>
           </p>
 
           <p>Technologies:
@@ -36,7 +38,9 @@
           </p>
 
           <p>Non-profit:
+            <% if (project.owner) { %>
               <%= project.owner.orgName %>
+            <% } %>
           </p>
 
           <div class="right-align">

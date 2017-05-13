@@ -18,4 +18,26 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get('/new', function(req, res, next){
+  const project = Project.build();
+  res.render('projects/new', {errors: [], project: project});
+});
+
+router.post('/', function(req, res, next){
+  const {title, description, deadline, github} = req.body;
+  Project.create({
+    title: title,
+    description: description,
+    deadline: deadline,
+    github: github
+    })
+    .then(function(project) {
+      res.redirect('/projects');
+    })
+    .catch(function(err) {
+      res.render('projects/new', {errors: err});
+    })
+});
+
+
 module.exports = router;
