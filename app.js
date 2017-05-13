@@ -58,6 +58,11 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(function(req, res, next) {
+  res.locals.currentUser = req.user || null;
+  next();
+});
+
 app.use('/', index);
 app.use('/users', users);
 app.use('/developers', developers);
@@ -124,11 +129,6 @@ passport.deserializeUser(function(id, done) {
   }).catch(function(err){
     done(err, null);
   });
-});
-
-app.use(function(req, res, next) {
-  res.locals.currentUser = req.user || null;
-  next();
 });
 
 // const currentUser = User.find({where: {id: 66}}).then(function(user) {
