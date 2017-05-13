@@ -63,43 +63,8 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use('/', index);
-app.use('/users', users);
-app.use('/developers', developers);
-app.use('/projects', projects);
-app.use('/sessions', sessions);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
 // passport setup
-const User = require("./models/index").User;
-// passport.use(new LocalStrategy({usernameField: 'email'}, User.passportVerify));
-
-// passport.serializeUser(function(user, done) {
-//   done(null, user.id);
-// });
-//
-// passport.deserializeUser(function(id, done) {
-//   User.findById(id, function(err, user) {
-//     done(err, user);
-//   });
-// });
+const User = require('./models/index').User;
 
 // Use local strategy to create user account
 passport.use(new LocalStrategy({usernameField: 'email'},
@@ -131,9 +96,39 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-// const currentUser = User.find({where: {id: 66}}).then(function(user) {
-//   return user
+// app.get('/flash', function(req, res){
+// 	// Set a flash message by passing the key, followed by the value, to req.flash().
+// 	req.flash('info', 'Flash is back!')
+// 	res.redirect('/');
 // });
-// console.log(currentUser);
+//
+// app.get('/', function(req, res){
+// 	// Get an array of flash messages by passing the key to req.flash()
+// 	res.render('index', { messages: req.flash('info') });
+// });
+
+app.use('/', index);
+app.use('/users', users);
+app.use('/developers', developers);
+app.use('/projects', projects);
+app.use('/sessions', sessions);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
 
 module.exports = app;

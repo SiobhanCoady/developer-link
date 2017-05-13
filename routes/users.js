@@ -4,17 +4,11 @@ const User = require('../models/index').User;
 const Review = require('../models/index').Review;
 const UserTagging = require('../models/index').UserTagging;
 const Project = require('../models/index').Project;
-// const UserMaterializedView = require('../models/index').UserMaterializedView;
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
-
-// router.get('/search', function(req, res, next) {
-//   UserMaterializedView.searchByText(params)
-//   res.send
-// });
 
 router.get('/new', function(req, res, next){
   const user = User.build();
@@ -44,21 +38,6 @@ router.post('/', function(req, res, next){
     .catch(function(err) {
       res.render('users/new', {errors: err});
     })
-  // user.save(function(err, usr){
-  //   if(err) {
-  //     res.render('users/new', {errors: err, user: user});
-  //   } else {
-  //     req.login(usr, function(err){
-  //       if(err) {
-  //         req.flash('error', 'Something went wrong');
-  //         res.redirect('/sessions/new');
-  //       } else {
-  //         req.flash('info', 'You\'re logged in');
-  //         res.redirect('/');
-  //       }
-  //     });
-  //   }
-  // });
 });
 
 // Show user
