@@ -58,7 +58,7 @@ router.post('/', function(req, res, next){
           res.redirect('/sessions/new');
         } else {
           req.flash('info', 'You\'re logged in');
-          res.redirect('/developers');
+          res.redirect(`/users/${user.id}/edit`);
         }
       })
     })
