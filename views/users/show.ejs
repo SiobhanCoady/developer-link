@@ -63,7 +63,7 @@
 
   <hr>
 
-  <% if (currentUser) { %>
+  <% if (currentUser && currentUser.id !== user.id) { %>
     <h3>Leave a Review</h3>
 
     <div class="row">
