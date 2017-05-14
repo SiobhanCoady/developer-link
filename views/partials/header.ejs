@@ -1,3 +1,17 @@
+<% let mainColor = 'white'; %>
+<% let fontColor = 'black-text'; %>
+<% let altFontColor = 'black-text'; %>
+
+<% if (currentUser && currentUser.userType === 'developer') { %>
+  <% mainColor = 'deep-purple'; %>
+  <% fontColor = 'white-text' %>
+  <% altFontColor = 'deep-purple-text' %>
+<% } else if (currentUser && currentUser.userType === 'nonprofit') { %>
+  <% mainColor = 'cyan'; %>
+  <% fontColor = 'white-text' %>
+  <% altFontColor = 'cyan-text' %>
+<% } %>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -16,52 +30,56 @@
     <!-- Dropdown Structure -->
     <ul id="dropdown1" class="dropdown-content">
       <% if (currentUser) { %>
-        <li><a href="/users/<%= currentUser.id %>">View Profile</a></li>
+        <li><a href="/users/<%= currentUser.id %>" class="<%= altFontColor %>">View Profile</a></li>
       <% } %>
-      <li><a href="#!">Edit Profile</a></li>
+      <li><a href="#!" class="<%= altFontColor %>">Edit Profile</a></li>
       <% if (currentUser && currentUser.userType === 'nonprofit') { %>
-        <li><a href="/projects/new">Create Project</a></li>
+        <li><a href="/projects/new" class="<%= altFontColor %>">Create Project</a></li>
       <% } %>
-      <li><a href="#!">Messages</a></li>
+      <li><a href="#!" class="<%= altFontColor %>">Messages</a></li>
       <li class="divider"></li>
-      <li><a href="/sessions/logout">Log Out</a></li>
+      <li><a href="/sessions/logout" class="<%= altFontColor %>">Log Out</a></li>
     </ul>
 
-    <nav class="white" role="navigation">
+    <nav class="<%= mainColor %>" role="navigation">
       <div class="nav-wrapper container">
-        <a id="logo-container" href="/" class="brand-logo"><span class="text-white">Web Dev Link</span></a>
+        <a id="logo-container" href="/" class="brand-logo <%= fontColor %>">Web Dev Link</a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="/developers">Browse Developers</a></li>
-          <li><a href="/projects">Browse Projects</a></li>
+          <li><a href="/developers" class="<%= fontColor %>">Browse Developers</a></li>
+          <li><a href="/projects" class="<%= fontColor %>">Browse Projects</a></li>
           <!-- Dropdown Trigger -->
           <% if (currentUser) { %>
-            <li><a class="dropdown-button" href="#!" data-activates="dropdown1">User Options<i class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a class="dropdown-button <%= fontColor %>" href="#!" data-activates="dropdown1">User Options<i class="material-icons right">arrow_drop_down</i></a></li>
           <% } else { %>
-            <li><a href="/sessions/new">Sign In</a></li>
+            <li><a href="/sessions/new" class="<%= fontColor %>">Sign In</a></li>
           <% } %>
         </ul>
 
         <ul id="nav-mobile" class="side-nav">
-          <li><a href="/developers">Browse Developers</a></li>
-          <li><a href="/projects">Browse Projects</a></li>
+          <li><a href="/developers" class="<%= altFontColor %>">Browse Developers</a></li>
+          <li><a href="/projects" class="<%= altFontColor %>">Browse Projects</a></li>
           <li class="divider"></li>
           <% if (currentUser) { %>
-            <li><a href="/users/<%= currentUser.id %>">View Profile</a></li>
-            <li><a href="#!">Edit Profile</a></li>
+            <li><a href="/users/<%= currentUser.id %>" class="<%= altFontColor %>">View Profile</a></li>
+            <li><a href="#!" class="<%= altFontColor %>">Edit Profile</a></li>
             <% if (currentUser && currentUser.userType === 'nonprofit') { %>
-              <li><a href="/projects/new">Create Project</a></li>
+              <li><a href="/projects/new" class="<%= altFontColor %>">Create Project</a></li>
             <% } %>
-            <li><a href="#!">Messages</a></li>
+            <li><a href="#!" class="<%= altFontColor %>">Messages</a></li>
             <li class="divider"></li>
-            <li><a href="/sessions/logout">Log Out</a></li>
+            <li><a href="/sessions/logout" class="<%= altFontColor %>">Log Out</a></li>
           <% } else { %>
-            <li><a href="/sessions/new">Sign In</a></li>
+            <li><a href="/sessions/new" class="<%= altFontColor %>">Sign In</a></li>
           <% } %>
         </ul>
-        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        <a href="#" data-activates="nav-mobile" class="button-collapse <%= fontColor %>"><i class="material-icons">menu</i></a>
       </div>
     </nav>
 
-    <% if ( info ) { %>
-      <p>Message: <%= info %> </p>
-    <% } %>
+    <%# if (info) { %>
+      <%= info %>
+    <%# } else if (error) { %>
+      <%= error %>
+    <%# } else if (success) { %>
+      <%= success %>
+    <%# } %>
