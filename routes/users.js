@@ -57,7 +57,7 @@ router.post('/', function(req, res, next){
           req.flash('error', 'Something went wrong');
           res.redirect('/sessions/new');
         } else {
-          req.flash('info', 'You\'re logged in');
+          req.flash('info', 'Please complete your profile');
           res.redirect(`/users/${user.id}/edit`);
         }
       })
@@ -116,7 +116,10 @@ router.get('/:id/edit', function(req, res) {
 
 router.patch('/:id', function(req, res, next) {
   const id = req.params.id;
-  const {firstName, lastName, email, userType} = req.body;
+  console.log(req.body);
+  const {firstName, lastName, email, userType, website, address, city,
+    province, country, description, github, linkedin, orgName,
+    charityType} = req.body;
 
   User
     .findById(id)
@@ -125,7 +128,17 @@ router.patch('/:id', function(req, res, next) {
         firstName: firstName,
         lastName: lastName,
         email: email,
-        userType: userType
+        userType: userType,
+        website: website,
+        address: address,
+        city: city,
+        province: province,
+        country: country,
+        description: description,
+        github: github,
+        linkedin: linkedin,
+        orgName: orgName,
+        charityType: charityType
       });
     })
     .then(function(user) {

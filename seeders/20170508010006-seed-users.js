@@ -24,6 +24,7 @@ const users = Array
       email: faker.internet.email(),
       password: '12345678',
       website: faker.internet.domainName(),
+      address: '',
       city: faker.address.city(),
       province: faker.address.stateAbbr(),
       country: faker.address.country(),

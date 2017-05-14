@@ -35,10 +35,50 @@
           <label for="email">Email</label>
         </div>
       </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input name="address" id="address" type="text"
+            class="validate" value="<%= user.address %>">
+          <label for="address">Street Address</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input name="city" id="city" type="text"
+            class="validate" value="<%= user.city %>">
+          <label for="city">City</label>
+        </div>
+        <div class="input-field col s6">
+          <input name="province" id="province" type="text"
+            class="validate" value="<%= user.province %>">
+          <label for="province">Province/State</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input name="country" id="country" type="text"
+            class="validate" value="<%= user.country %>">
+          <label for="country">Country</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea name="description" id="description"
+            class="materialize-textarea"><%= user.description %></textarea>
+          <label for="description">Description</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input name="website" id="website" type="text" class="validate"
+            value="<%= user.website %>">
+          <label for="website">Website</label>
+        </div>
+      </div>
       <p>
         <input name="userType" type="radio" id="developer" value="developer"
           <% if (user.userType === 'developer') { %>
-            checked
+            checked class="dev-checked"
           <% } %>
           />
         <label for="developer">Developer</label>
@@ -46,11 +86,46 @@
       <p>
         <input name="userType" type="radio" id="nonprofit" value="nonprofit"
           <% if (user.userType === 'nonprofit') { %>
-            checked
+            checked class="np-checked"
           <% } %>
           />
         <label for="nonprofit">Nonprofit</label>
       </p>
+      <div class="row dev-options hidden">
+        <div class="input-field col s12">
+          <input name="github" id="github" type="text" class="validate"
+            value="<%= user.github %>">
+          <label for="github">GitHub</label>
+        </div>
+      </div>
+      <div class="row dev-options hidden">
+        <div class="input-field col s12">
+          <input name="linkedin" id="linkedin" type="text" class="validate"
+            value="<%= user.linkedin %>">
+          <label for="linkedin">LinkedIn</label>
+        </div>
+      </div>
+      <div class="row np-options hidden">
+        <div class="input-field col s12">
+          <input name="orgName" id="orgName" type="text" class="validate"
+            value="<%= user.orgName %>">
+          <label for="orgName">Organization Name</label>
+        </div>
+      </div>
+      <div class="row np-options hidden">
+        <div class="input-field col s12">
+          <select name="charityType">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="Animal">Animal</option>
+            <option value="Arts and Culture">Arts and Culture</option>
+            <option value="Education">Education</option>
+            <option value="Environmental">Environmental</option>
+            <option value="Health">Health</option>
+            <option value="International NGO">International NGO</option>
+          </select>
+          <label for="charityType">Charity Type</label>
+        </div>
+      </div>
       <button class="btn waves-effect waves-light <%= mainColor %> <%= fontColor %>" type="submit" name="action">Submit
       </button>
     </form>
