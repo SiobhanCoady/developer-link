@@ -1,0 +1,60 @@
+<% if (currentUser && currentUser.userType === 'developer') { %>
+  <% mainColor = 'deep-purple'; %>
+  <% fontColor = 'white-text' %>
+  <% altFontColor = 'deep-purple-text' %>
+<% } else if (currentUser && currentUser.userType === 'nonprofit') { %>
+  <% mainColor = 'cyan'; %>
+  <% fontColor = 'white-text' %>
+  <% altFontColor = 'cyan-text' %>
+<% } %>
+
+<%- include('../partials/header') %>
+
+<div class="container">
+  <h1>Edit User Profile</h1>
+
+  <div class="row">
+    <form class="col s12" action="/users/<%= user.id %>" method="POST">
+      <input type="hidden" name="_method" value="PATCH">
+      <div class="row">
+        <div class="input-field col s6">
+          <input name="firstName" id="first_name" type="text"
+            class="validate" value="<%= user.firstName %>">
+          <label for="first_name">First Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input name="lastName" id="last_name" type="text"
+            class="validate" value="<%= user.lastName %>">
+          <label for="last_name">Last Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input name="email" id="email" type="email"
+            class="validate" value="<%= user.email %>">
+          <label for="email">Email</label>
+        </div>
+      </div>
+      <p>
+        <input name="userType" type="radio" id="developer" value="developer"
+          <% if (user.userType === 'developer') { %>
+            checked
+          <% } %>
+          />
+        <label for="developer">Developer</label>
+      </p>
+      <p>
+        <input name="userType" type="radio" id="nonprofit" value="nonprofit"
+          <% if (user.userType === 'nonprofit') { %>
+            checked
+          <% } %>
+          />
+        <label for="nonprofit">Nonprofit</label>
+      </p>
+      <button class="btn waves-effect waves-light <%= mainColor %> <%= fontColor %>" type="submit" name="action">Submit
+      </button>
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

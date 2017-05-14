@@ -100,6 +100,40 @@ router.get('/:id', function(req, res) {
     })
 });
 
+router.get('/:id/edit', function(req, res) {
+  const id = req.params.id;
+
+  User
+    .findById(id)
+    .then(function(user) {
+      if (req.user && req.user.id === user.id) {
+        res.render('users/edit', {user: user});
+      } else {
+        res.redirect('/');
+      }
+    });
+});
+
+router.patch('/:id', function(req, res, next) {
+  const id = req.params.id;
+  const {firstName, lastName, email, userType} = req.body;
+
+  User
+    .findById(id)
+    .then(function(user) {
+      return user.update({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        userType: userType
+      });
+    })
+    .then(function(user) {
+      res.redirect(`/users/${id}`);
+    })
+    .catch(function(err) { next(err) })
+})
+
 router.use('/:userId/reviews', reviews);
 
 module.exports = router;

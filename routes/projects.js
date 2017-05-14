@@ -20,7 +20,11 @@ router.get('/', function(req, res, next) {
 
 router.get('/new', function(req, res, next){
   const project = Project.build();
-  res.render('projects/new', {errors: [], project: project});
+  if (req.user && req.user.userType === 'nonprofit') {
+    res.render('projects/new', {errors: [], project: project});
+  } else {
+    res.redirect('/projects');
+  }
 });
 
 router.post('/', function(req, res, next){

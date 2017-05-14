@@ -31,8 +31,8 @@
     <ul id="dropdown1" class="dropdown-content">
       <% if (currentUser) { %>
         <li><a href="/users/<%= currentUser.id %>" class="<%= altFontColor %>">View Profile</a></li>
+        <li><a href="/users/<%= currentUser.id %>/edit" class="<%= altFontColor %>">Edit Profile</a></li>
       <% } %>
-      <li><a href="#!" class="<%= altFontColor %>">Edit Profile</a></li>
       <% if (currentUser && currentUser.userType === 'nonprofit') { %>
         <li><a href="/projects/new" class="<%= altFontColor %>">Create Project</a></li>
       <% } %>
@@ -61,7 +61,7 @@
           <li class="divider"></li>
           <% if (currentUser) { %>
             <li><a href="/users/<%= currentUser.id %>" class="<%= altFontColor %>">View Profile</a></li>
-            <li><a href="#!" class="<%= altFontColor %>">Edit Profile</a></li>
+            <li><a href="/users/<%= currentUser.id %>/edit" class="<%= altFontColor %>">Edit Profile</a></li>
             <% if (currentUser && currentUser.userType === 'nonprofit') { %>
               <li><a href="/projects/new" class="<%= altFontColor %>">Create Project</a></li>
             <% } %>
