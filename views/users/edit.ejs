@@ -105,6 +105,28 @@
           <label for="linkedin">LinkedIn</label>
         </div>
       </div>
+      <div class="row dev-options hidden">
+        <div class="input-field col s12">
+          <select name="technology" multiple>
+            <option value="" disabled selected>Choose your technologies</option>
+            <% for (let tech of techs) { %>
+              <option value="<%= tech.name %>"><%= tech.name %></option>
+            <% } %>
+          </select>
+          <label for="technology">Technologies</label>
+        </div>
+      </div>
+      <div class="row dev-options hidden">
+        <div class="input-field col s12">
+          <select name="language" multiple>
+            <option value="" disabled selected>Choose your languages</option>
+            <% for (let lang of langs) { %>
+              <option value="<%= lang.name %>"><%= lang.name %></option>
+            <% } %>
+          </select>
+          <label for="language">Languages</label>
+        </div>
+      </div>
       <div class="row np-options hidden">
         <div class="input-field col s12">
           <input name="orgName" id="orgName" type="text" class="validate"

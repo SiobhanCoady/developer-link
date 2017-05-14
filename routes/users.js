@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const User = require('../models/index').User;
 const Review = require('../models/index').Review;
+const Tag = require('../models/index').Tag;
 const UserTagging = require('../models/index').UserTagging;
 const Project = require('../models/index').Project;
 const reviews = require('./reviews');
@@ -106,8 +107,19 @@ router.get('/:id/edit', function(req, res) {
   User
     .findById(id)
     .then(function(user) {
+      return Promise.all([
+        user,
+        Tag.findAll({
+          where: { tagType: 'technology'}
+        }),
+        Tag.findAll({
+          where: { tagType: 'language'}
+        })
+      ])
+    })
+    .then(function([user, techs, langs]) {
       if (req.user && req.user.id === user.id) {
-        res.render('users/edit', {user: user});
+        res.render('users/edit', {user: user, techs: techs, langs: langs});
       } else {
         res.redirect('/');
       }
@@ -119,11 +131,35 @@ router.patch('/:id', function(req, res, next) {
   console.log(req.body);
   const {firstName, lastName, email, userType, website, address, city,
     province, country, description, github, linkedin, orgName,
-    charityType} = req.body;
+    charityType, technology, language} = req.body;
 
   User
     .findById(id)
     .then(function(user) {
+      if (technology) {
+        for (let tech of technology) {
+          Tag.find({where: {name: tech}})
+          .then(function(tag) {
+            UserTagging.create({
+              userId: user.id,
+              tagId: tag.id
+            });
+          })
+        }
+      }
+
+      if (language) {
+        for (let lang of language) {
+          Tag.find({where: {name: lang}})
+          .then(function(tag) {
+            UserTagging.create({
+              userId: user.id,
+              tagId: tag.id
+            });
+          })
+        }
+      }
+
       return user.update({
         firstName: firstName,
         lastName: lastName,
