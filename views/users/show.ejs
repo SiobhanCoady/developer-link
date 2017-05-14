@@ -46,20 +46,23 @@
     <p>Website: <%= user.website %></p>
     <p>Country: <%= user.country %></p>
     <h3>Projects</h3>
-    <ul class="user-projects-list">
-      <% for (let project of projects) { %>
-        <li>
-          <p><%= project.title %></p>
-          <p><%= project.description %></p>
-          <p>Deadline: <%= project.deadline %></p>
-          <p>GitHub: <%= project.github %></p>
-          <hr>
-        </li>
-      <% } %>
-    </ul>
+    <% if (projects.length > 0) { %>
+      <ul class="user-projects-list">
+        <% for (let project of projects) { %>
+          <li>
+            <p><%= project.title %></p>
+            <p><%= project.description %></p>
+            <p>Deadline: <%= project.deadline %></p>
+            <p>GitHub: <%= project.github %></p>
+            <hr>
+          </li>
+        <% } %>
+      </ul>
+    <% } else { %>
+      <p>This nonprofit does not currently have any projects listed.</p>
+    <% } %>
 
   <% } %>
-
 
   <hr>
 
