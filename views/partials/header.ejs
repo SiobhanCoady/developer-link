@@ -17,6 +17,9 @@
     <ul id="dropdown1" class="dropdown-content">
       <li><a href="#!">View Profile</a></li>
       <li><a href="#!">Edit Profile</a></li>
+      <% if (currentUser.userType === 'nonprofit') { %>
+        <li><a href="/projects/new">Create Project</a></li>
+      <% } %>
       <li><a href="#!">Messages</a></li>
       <li class="divider"></li>
       <li><a href="/sessions/logout">Log Out</a></li>
@@ -43,6 +46,9 @@
           <% if (currentUser) { %>
             <li><a href="#!">View Profile</a></li>
             <li><a href="#!">Edit Profile</a></li>
+            <% if (currentUser.userType === 'nonprofit') { %>
+              <li><a href="/projects/new">Create Project</a></li>
+            <% } %>
             <li><a href="#!">Messages</a></li>
             <li class="divider"></li>
             <li><a href="/sessions/logout">Log Out</a></li>

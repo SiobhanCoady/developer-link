@@ -13,7 +13,7 @@ let charities = [ 'Animal',
                 ]
 
 const users = Array
-  .from({length: 1})
+  .from({length: 10})
   .map(function() {
     let num = Math.floor(Math.random() * 10) + 1
     const determinedUserType = num > 5 ? 'developer' : 'nonprofit'
@@ -34,14 +34,14 @@ const users = Array
       orgName: (determinedUserType === 'nonprofit' ? faker.company.companyName() : ''),
       charityType: (determinedUserType === 'nonprofit' ? charities[Math.floor(Math.random() * charities.length)] : '')
     }).then(function(user) {
-      return geocoder.geocode(user.country, function ( err, data ) {
-        user.updateAttributes({
-          latitude: data.results[0].geometry.location.lat,
-          longitude: data.results[0].geometry.location.lng
-
-        });
+      // return geocoder.geocode(user.country, function ( err, data ) {
+      //   user.updateAttributes({
+      //     latitude: data.results[0].geometry.location.lat,
+      //     longitude: data.results[0].geometry.location.lng
+      //
+      //   });
         return user;
-      })
+      // })
     })
     return u;
   });

@@ -1,3 +1,4 @@
+// var bcrypt = require('bcrypt-nodejs');
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
@@ -25,6 +26,14 @@ module.exports = function(sequelize, DataTypes) {
                           ''
                         )
   }, {
+    // instanceMethods: {
+    //     generateHash: function(password) {
+    //         return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    //     },
+    //     validPassword: function(password) {
+    //         return bcrypt.compareSync(password, this.password);
+    //     },
+    // },
     customHooks: {
         afterSave: (models) => {
           models.UserMaterializedView.refresh();
@@ -34,20 +43,6 @@ module.exports = function(sequelize, DataTypes) {
       validPassword: function(password) {
         return this.password === password;
       },
-      // passportVerify: function(email, password, done) {
-      //   return User
-      //           .find({ where: { email: email } })
-      //           .then(function(user) {
-      //             if (err) { return done(err); }
-      //             if (!user) {
-      //               return done(null, false, { message: 'Incorrect email.' });
-      //             }
-      //             if (!user.validPassword(password)) {
-      //               return done(null, false, { message: 'Incorrect password.' });
-      //             }
-      //             return done(null, user);
-      //           });
-      // },
       associate: function(models) {
         User.belongsToMany(models.Tag, { as: 'Charities',
                                          scope: {
@@ -71,5 +66,17 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
+
+  // var hashPasswordHook = function(instance, done) {
+  //   if (!instance.changed('password')) return done();
+  //   bcrypt.hash(instance.get('password'), 10, function (err, hash) {
+  //     if (err) return done(err);
+  //     instance.set('password', hash);
+  //     done();
+  //   });
+  // };
+  // User.beforeCreate(hashPasswordHook);
+  // User.beforeUpdate(hashPasswordHook);
+
   return User;
 };

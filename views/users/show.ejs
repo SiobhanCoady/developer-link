@@ -63,7 +63,31 @@
 
   <hr>
 
+  <% if (currentUser) { %>
+    <h3>Leave a Review</h3>
+
+    <div class="row">
+      <form class="col s12" action="/users/<%= user.id %>/reviews" method="post">
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea name="body" id="body" class="materialize-textarea"></textarea>
+            <label for="body">Body</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input name="rating" id="rating" type="number" min="1" max="5" step="1" class="validate">
+            <label for="rating">Rating</label>
+          </div>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+        </button>
+      </form>
+    </div>
+  <% } %>
+
   <h3>Reviews</h3>
+
   <ul class="reviews-list">
     <% for (let review of reviews) { %>
       <li>
