@@ -10,6 +10,7 @@ module.exports = {
       },
       projectId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: 'Projects',
           key: 'id'
@@ -19,6 +20,7 @@ module.exports = {
       },
       tagId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: 'Tags',
           key: 'id'

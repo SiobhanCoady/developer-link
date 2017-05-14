@@ -9,16 +9,21 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       firstName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       lastName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
       },
       password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       website: {
         type: Sequelize.STRING
@@ -42,7 +47,8 @@ module.exports = {
         type: Sequelize.TEXT
       },
       userType: {
-        type: Sequelize.ENUM('developer', 'nonprofit')
+        type: Sequelize.ENUM('developer', 'nonprofit'),
+        allowNull: false
       },
       github: {
         type: Sequelize.STRING
