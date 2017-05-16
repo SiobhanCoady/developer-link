@@ -7,18 +7,6 @@ const UserTagging = require('../models/index').UserTagging;
 const Project = require('../models/index').Project;
 const reviews = require('./reviews');
 
-// function cryptPassword(password, callback) {
-//   bcrypt.genSalt(10, function(err, salt) { // Encrypt password using bycrpt module
-//     if (err) {
-//       return callback(err);
-//     }
-//     bcrypt.hash(password, salt, function(err, hash) {
-//       return callback(err, hash);
-//     });
-//   });
-// }
-
-
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -30,27 +18,18 @@ router.get('/new', function(req, res, next){
   res.render('users/new', {errors: [], user: user});
 });
 
-router.post('/', function(req, res, next){
+router.post('/', async function(req, res, next){
   const {firstName, lastName, email, userType} = req.body;
   const password = req.body.password;
+  const passwordConfirmation = req.body.passwordConfirmation;
 
-  // User.beforeCreate(function(model, options, cb) {
-  //   // debug('Info: ' + 'Storing the password');
-  //   cryptPassword(password, function(err, hash) {
-  //     if (err) return cb(err);
-  //     // debug('Info: ' + 'getting ' + hash);
-  //
-  //     password = hash;
-  //     return cb(null, options);
-  //   });
-  // });
-
-  User.create({
-    firstName: firstName,
-    lastName: lastName,
-    email: email,
-    password: password,
-    userType: userType
+  if (password === passwordConfirmation) {
+    User.create({
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: await User.cryptPassword(password),
+      userType: userType
     })
     .then(function(user) {
       req.login(user, function(err){
@@ -66,6 +45,10 @@ router.post('/', function(req, res, next){
     .catch(function(err) {
       res.render('users/new', {errors: err});
     })
+  } else {
+    req.flash('error', 'Password does not match password confirmation');
+    res.redirect('/users/new');
+  }
 });
 
 // Show user
@@ -128,7 +111,6 @@ router.get('/:id/edit', function(req, res) {
 
 router.patch('/:id', function(req, res, next) {
   const id = req.params.id;
-  console.log(req.body);
   const {firstName, lastName, email, userType, website, address, city,
     province, country, description, github, linkedin, orgName,
     charityType, technology, language} = req.body;

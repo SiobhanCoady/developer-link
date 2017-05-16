@@ -1,4 +1,6 @@
-// var bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 10;
+
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
@@ -27,22 +29,19 @@ module.exports = function(sequelize, DataTypes) {
                           ''
                         )
   }, {
-    // instanceMethods: {
-    //     generateHash: function(password) {
-    //         return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-    //     },
-    //     validPassword: function(password) {
-    //         return bcrypt.compareSync(password, this.password);
-    //     },
-    // },
     customHooks: {
         afterSave: (models) => {
           models.UserMaterializedView.refresh();
         }
     },
     classMethods: {
-      validPassword: function(password) {
-        return this.password === password;
+      validPassword: async function(password, userPassword) {
+        const result = await bcrypt.compare(password, userPassword);
+        return result;
+      },
+      cryptPassword: async function(password) {
+        const hash = await bcrypt.hash(password, SALT_ROUNDS);
+        return hash;
       },
       associate: function(models) {
         User.belongsToMany(models.Tag, { as: 'Charities',
@@ -67,17 +66,6 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-
-  // var hashPasswordHook = function(instance, done) {
-  //   if (!instance.changed('password')) return done();
-  //   bcrypt.hash(instance.get('password'), 10, function (err, hash) {
-  //     if (err) return done(err);
-  //     instance.set('password', hash);
-  //     done();
-  //   });
-  // };
-  // User.beforeCreate(hashPasswordHook);
-  // User.beforeUpdate(hashPasswordHook);
 
   return User;
 };

@@ -11,6 +11,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
 var Sequelize = require('sequelize'),
 	passportLocalSequelize = require('passport-local-sequelize');
+const bcrypt = require('bcrypt');
 
 var mydb = new Sequelize('fp_dev', 'myuser', 'mypass', {
 	dialect: 'postgres',
@@ -69,12 +70,12 @@ const User = require('./models/index').User;
 
 // Use local strategy to create user account
 passport.use(new LocalStrategy({usernameField: 'email'},
-  function(email, password, done) {
-    User.find({ where: { email: email }}).then(function(user) {
-      if (!user) {
+  async function(email, password, done) {
+    User.find({ where: { email: email }}).then(async function(user) {
+			if (!user) {
         done(null, false, { message: 'Unknown user' });
-      } else if (password != user.password) {
-        done(null, false, { message: 'Invalid password'});
+      } else if (!(await User.validPassword(password, user.password))) {
+			  done(null, false, { message: 'Invalid password'});
       } else {
         done(null, user);
       }

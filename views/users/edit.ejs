@@ -1,3 +1,7 @@
+<% let mainColor = 'white'; %>
+<% let fontColor = 'black-text'; %>
+<% let altFontColor = 'black-text'; %>
+
 <% if (currentUser && currentUser.userType === 'developer') { %>
   <% mainColor = 'deep-purple'; %>
   <% fontColor = 'white-text' %>
@@ -75,79 +79,70 @@
           <label for="website">Website</label>
         </div>
       </div>
-      <p>
-        <input name="userType" type="radio" id="developer" value="developer"
-          <% if (user.userType === 'developer') { %>
-            checked class="dev-checked"
-          <% } %>
-          />
-        <label for="developer">Developer</label>
-      </p>
-      <p>
-        <input name="userType" type="radio" id="nonprofit" value="nonprofit"
-          <% if (user.userType === 'nonprofit') { %>
-            checked class="np-checked"
-          <% } %>
-          />
-        <label for="nonprofit">Nonprofit</label>
-      </p>
-      <div class="row dev-options hidden">
-        <div class="input-field col s12">
-          <input name="github" id="github" type="text" class="validate"
-            value="<%= user.github %>">
-          <label for="github">GitHub</label>
+
+      <% if (user.userType === 'developer') { %>
+        <div class="row dev-options">
+          <div class="input-field col s12">
+            <input name="github" id="github" type="text" class="validate"
+              value="<%= user.github %>">
+            <label for="github">GitHub</label>
+          </div>
         </div>
-      </div>
-      <div class="row dev-options hidden">
-        <div class="input-field col s12">
-          <input name="linkedin" id="linkedin" type="text" class="validate"
-            value="<%= user.linkedin %>">
-          <label for="linkedin">LinkedIn</label>
+        <div class="row dev-options">
+          <div class="input-field col s12">
+            <input name="linkedin" id="linkedin" type="text" class="validate"
+              value="<%= user.linkedin %>">
+            <label for="linkedin">LinkedIn</label>
+          </div>
         </div>
-      </div>
-      <div class="row dev-options hidden">
-        <div class="input-field col s12">
-          <select name="technology" multiple>
-            <option value="" disabled selected>Choose your technologies</option>
-            <% for (let tech of techs) { %>
-              <option value="<%= tech.name %>"><%= tech.name %></option>
-            <% } %>
-          </select>
-          <label for="technology">Technologies</label>
+        <div class="row dev-options">
+          <div class="input-field col s12">
+            <select name="technology" multiple>
+              <option value="" disabled selected>Choose your technologies</option>
+              <% for (let tech of techs) { %>
+                <option value="<%= tech.name %>"><%= tech.name %></option>
+              <% } %>
+            </select>
+            <label for="technology">Technologies</label>
+          </div>
         </div>
-      </div>
-      <div class="row dev-options hidden">
-        <div class="input-field col s12">
-          <select name="language" multiple>
-            <option value="" disabled selected>Choose your languages</option>
-            <% for (let lang of langs) { %>
-              <option value="<%= lang.name %>"><%= lang.name %></option>
-            <% } %>
-          </select>
-          <label for="language">Languages</label>
+        <div class="row dev-options">
+          <div class="input-field col s12">
+            <select name="language" multiple>
+              <option value="" disabled selected>Choose your languages</option>
+              <% for (let lang of langs) { %>
+                <option value="<%= lang.name %>"><%= lang.name %></option>
+              <% } %>
+            </select>
+            <label for="language">Languages</label>
+          </div>
         </div>
-      </div>
-      <div class="row np-options hidden">
-        <div class="input-field col s12">
-          <input name="orgName" id="orgName" type="text" class="validate"
-            value="<%= user.orgName %>">
-          <label for="orgName">Organization Name</label>
+      <% } %>
+
+      <% if (user.userType === 'nonprofit') { %>
+        <div class="row np-options">
+          <div class="input-field col s12">
+            <input name="orgName" id="orgName" type="text" class="validate"
+              value="<%= user.orgName %>">
+            <label for="orgName">Organization Name</label>
+          </div>
         </div>
-      </div>
-      <div class="row np-options hidden">
-        <div class="input-field col s12">
-          <select name="charityType">
-            <option value="" disabled selected>Choose your option</option>
-            <option value="Animal">Animal</option>
-            <option value="Arts and Culture">Arts and Culture</option>
-            <option value="Education">Education</option>
-            <option value="Environmental">Environmental</option>
-            <option value="Health">Health</option>
-            <option value="International NGO">International NGO</option>
-          </select>
-          <label for="charityType">Charity Type</label>
+        <div class="row np-options">
+          <div class="input-field col s12">
+            <select name="charityType">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="Animal">Animal</option>
+              <option value="Arts and Culture">Arts and Culture</option>
+              <option value="Education">Education</option>
+              <option value="Environmental">Environmental</option>
+              <option value="Health">Health</option>
+              <option value="International NGO">International NGO</option>
+            </select>
+            <label for="charityType">Charity Type</label>
+          </div>
         </div>
-      </div>
+      <% } %>
+
       <button class="btn waves-effect waves-light <%= mainColor %> <%= fontColor %>" type="submit" name="action">Submit
       </button>
     </form>

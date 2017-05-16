@@ -3,6 +3,10 @@
 <div class="container">
   <h1>Sign Up</h1>
 
+  <% if (errors) { %>
+    <%= errors %>
+  <% } %>
+
   <div class="row">
     <form class="col s12" action="/users" method="post">
       <div class="row">
