@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var pluck = require('arr-pluck');
 const User = require('../models/index').User;
 const Review = require('../models/index').Review;
 const Tag = require('../models/index').Tag;
@@ -67,23 +68,24 @@ router.get('/:id', function(req, res) {
           ]
         }),
         user.getTags(),
-        user.getCharity(),
+        // user.getCharity(),
         Project.findAll({
           where: { ownerId: user.id },
           order: [['createdAt', 'DESC']]
         })
       ])
     })
-    .then(function([user, reviews, tags, charity, projects]) {
+    .then(function([user, reviews, tags, projects]) {
       res.render('users/show', {user: user,
                                 reviews: reviews,
                                 tags: tags,
-                                charity: charity,
+                                // charity: charity,
                                 projects: projects
                                })
     })
 });
 
+// Edit user
 router.get('/:id/edit', function(req, res) {
   const id = req.params.id;
 
@@ -92,35 +94,84 @@ router.get('/:id/edit', function(req, res) {
     .then(function(user) {
       return Promise.all([
         user,
+        UserTagging.findAll({where: {userId: user.id}, attributes: { exclude: ['UserId'] }}),
         Tag.findAll({
           where: { tagType: 'technology'}
         }),
         Tag.findAll({
           where: { tagType: 'language'}
+        }),
+        Tag.findAll({
+          where: { tagType: 'charityType'}
         })
       ])
     })
-    .then(function([user, techs, langs]) {
+    .then(function([user, userTags, techs, langs, charities]) {
+      const tags = userTags.map((tag) => tag.tagId);
       if (req.user && req.user.id === user.id) {
-        res.render('users/edit', {user: user, techs: techs, langs: langs});
+        res.render('users/edit', {user, techs, userTags: tags, langs, charities});
       } else {
         res.redirect('/');
       }
     });
 });
 
+// Update user
 router.patch('/:id', function(req, res, next) {
   const id = req.params.id;
   const {firstName, lastName, email, userType, website, address, city,
     province, country, description, github, linkedin, orgName,
-    charityType, technology, language} = req.body;
+    charityType, technology, language, charity} = req.body;
+
+  // const techTagIds = Tag.findAll({
+  //                       where: { tagType: 'technology'}
+  //                     }).then(function(tags) {
+  //                       let result = [];
+  //                       for (let tag of tags) {
+  //                         result.push(tag.id)
+  //                       }
+  //                       return pluck(result, 'id');
+  //                     })
+  //
+  // const langTagIds = Tag.findAll({
+  //                       where: { tagType: 'language'}
+  //                     }).then(function(tags) {
+  //                       let result = [];
+  //                       for (let tag of tags) {
+  //                         result.push(tag.id)
+  //                       }
+  //                       return result;
+  //                     })
+  //
+  // const charTagIds = Tag.findAll({
+  //                       where: { tagType: 'charityType'}
+  //                     }).then(function(tags) {
+  //                       let result = [];
+  //                       for (let tag of tags) {
+  //                         result.push(tag.id)
+  //                       }
+  //                       return result;
+  //                     })
 
   User
     .findById(id)
     .then(function(user) {
+      UserTagging.destroy({where: {userId: user.id}});
       if (technology) {
         for (let tech of technology) {
           Tag.find({where: {name: tech}})
+            .then(function(tag) {
+              UserTagging.create({
+                userId: user.id,
+                tagId: tag.id
+              });
+            })
+        }
+      }
+
+      if (language) {
+        for (let lang of language) {
+          Tag.find({where: {name: lang}})
           .then(function(tag) {
             UserTagging.create({
               userId: user.id,
@@ -130,9 +181,9 @@ router.patch('/:id', function(req, res, next) {
         }
       }
 
-      if (language) {
-        for (let lang of language) {
-          Tag.find({where: {name: lang}})
+      if (charity) {
+        for (let char of charity) {
+          Tag.find({where: {name: char}})
           .then(function(tag) {
             UserTagging.create({
               userId: user.id,

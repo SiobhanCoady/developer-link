@@ -9,6 +9,7 @@
     "db:drop": "dropdb --echo fp_dev"
   },
   "dependencies": {
+    "arr-pluck": "^0.1.0",
     "bcrypt": "^1.0.2",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "~1.17.1",

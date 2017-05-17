@@ -15,12 +15,7 @@ module.exports = function(sequelize, DataTypes) {
     document: DataTypes.TEXT
   }, {
       referenceModel: 'User', // The model for which we're defining the materialized view
-      search: true,
-      defaultScope: {
-        attributes: {
-          exclude: ['id']
-        }
-      }
+      search: true
   });
   return UserMaterializedView;
 };

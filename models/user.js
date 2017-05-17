@@ -44,6 +44,7 @@ module.exports = function(sequelize, DataTypes) {
         return hash;
       },
       associate: function(models) {
+        User.hasMany(models.UserTagging, { as: 'user', foreignKey: 'userId' });
         User.belongsToMany(models.Tag, { as: 'Charities',
                                          scope: {
                                            tagType: 'charityType'

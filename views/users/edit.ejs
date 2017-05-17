@@ -100,7 +100,11 @@
             <select name="technology" multiple>
               <option value="" disabled selected>Choose your technologies</option>
               <% for (let tech of techs) { %>
-                <option value="<%= tech.name %>"><%= tech.name %></option>
+                <option
+                  <% if (userTags.includes(tech.id)) { %>
+                    selected
+                  <% } %>
+                  value="<%= tech.name %>"><%= tech.name %></option>
               <% } %>
             </select>
             <label for="technology">Technologies</label>
@@ -111,10 +115,29 @@
             <select name="language" multiple>
               <option value="" disabled selected>Choose your languages</option>
               <% for (let lang of langs) { %>
-                <option value="<%= lang.name %>"><%= lang.name %></option>
+                <option
+                  <% if (userTags.includes(lang.id)) { %>
+                    selected
+                  <% } %>
+                  value="<%= lang.name %>"><%= lang.name %></option>
               <% } %>
             </select>
             <label for="language">Languages</label>
+          </div>
+        </div>
+        <div class="row dev-options">
+          <div class="input-field col s12">
+            <select name="charity" multiple>
+              <option value="" disabled selected>Choose your charity types</option>
+              <% for (let charity of charities) { %>
+                <option
+                  <% if (userTags.includes(charity.id)) { %>
+                    selected
+                  <% } %>
+                  value="<%= charity.name %>"><%= charity.name %></option>
+              <% } %>
+            </select>
+            <label for="charity">Charity Types</label>
           </div>
         </div>
       <% } %>
@@ -129,14 +152,17 @@
         </div>
         <div class="row np-options">
           <div class="input-field col s12">
-            <select name="charityType">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="Animal">Animal</option>
-              <option value="Arts and Culture">Arts and Culture</option>
-              <option value="Education">Education</option>
-              <option value="Environmental">Environmental</option>
-              <option value="Health">Health</option>
-              <option value="International NGO">International NGO</option>
+          <select name="charityType">
+          <option value="" disabled selected>Choose your option</option>
+
+        <% ['Animal', 'Arts and Culture', 'Education', 'Environmental', 'Health', 'International NGO'].map((type) => { %>
+          <option value="<%= type %>"
+            <% if (type === user.charityType) { %>
+              selected
+            <% } %>
+              ><%= type %></option>
+        <% }) %>
+              
             </select>
             <label for="charityType">Charity Type</label>
           </div>
