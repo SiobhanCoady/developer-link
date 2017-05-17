@@ -91,17 +91,21 @@
 
   <h3>Reviews</h3>
 
-  <ul class="reviews-list">
-    <% for (let review of reviews) { %>
-      <li>
-        <p><%= review.body %></p>
-        <p><%= review.reviewer.firstName %> <%= review.reviewer.lastName %></p>
-        <p><strong>Rating: </strong><%= review.rating %></p>
-        <p><strong>Created At: </strong><%= review.createdAt %></p>
-        <hr>
-      </li>
-    <% } %>
-  </ul>
+  <% if (reviews.length > 0) { %>
+    <ul class="reviews-list">
+      <% for (let review of reviews) { %>
+        <li>
+          <p><%= review.body %></p>
+          <p><%= review.reviewer.firstName %> <%= review.reviewer.lastName %></p>
+          <p><strong>Rating: </strong><%= review.rating %></p>
+          <p><strong>Created At: </strong><%= review.createdAt %></p>
+          <hr>
+        </li>
+      <% } %>
+    </ul>
+  <% } else { %>
+    <p>This account does not currently have any reviews.</p>
+  <% } %>
 </div>
 
 <%- include('../partials/footer') %>
