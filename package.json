@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
-    "debug": "nodemon --inspect ./bin/www",
+    "start": "nodemon --harmony ./bin/www",
+    "debug": "nodemon --harmony --inspect ./bin/www",
     "db:create": "createdb --echo fp_dev",
     "db:drop": "dropdb --echo fp_dev"
   },
@@ -32,7 +32,8 @@
     "pg-search-sequelize": "^0.0.10",
     "sequelize": "^3.30.4",
     "sequelize-cli": "^2.7.0",
-    "serve-favicon": "~2.4.2"
+    "serve-favicon": "~2.4.2",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

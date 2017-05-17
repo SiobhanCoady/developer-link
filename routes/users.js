@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var pluck = require('arr-pluck');
 const User = require('../models/index').User;
 const Review = require('../models/index').Review;
 const Tag = require('../models/index').Tag;
@@ -123,41 +122,11 @@ router.patch('/:id', function(req, res, next) {
     province, country, description, github, linkedin, orgName,
     charityType, technology, language, charity} = req.body;
 
-  // const techTagIds = Tag.findAll({
-  //                       where: { tagType: 'technology'}
-  //                     }).then(function(tags) {
-  //                       let result = [];
-  //                       for (let tag of tags) {
-  //                         result.push(tag.id)
-  //                       }
-  //                       return pluck(result, 'id');
-  //                     })
-  //
-  // const langTagIds = Tag.findAll({
-  //                       where: { tagType: 'language'}
-  //                     }).then(function(tags) {
-  //                       let result = [];
-  //                       for (let tag of tags) {
-  //                         result.push(tag.id)
-  //                       }
-  //                       return result;
-  //                     })
-  //
-  // const charTagIds = Tag.findAll({
-  //                       where: { tagType: 'charityType'}
-  //                     }).then(function(tags) {
-  //                       let result = [];
-  //                       for (let tag of tags) {
-  //                         result.push(tag.id)
-  //                       }
-  //                       return result;
-  //                     })
-
   User
     .findById(id)
     .then(function(user) {
       UserTagging.destroy({where: {userId: user.id}});
-      if (technology) {
+      if (Array.isArray(technology)) {
         for (let tech of technology) {
           Tag.find({where: {name: tech}})
             .then(function(tag) {
@@ -167,9 +136,17 @@ router.patch('/:id', function(req, res, next) {
               });
             })
         }
+      } else {
+        Tag.find({where: {name: technology}})
+          .then(function(tag) {
+            UserTagging.create({
+              userId: user.id,
+              tagId: tag.id
+            });
+          })
       }
 
-      if (language) {
+      if (Array.isArray(language)) {
         for (let lang of language) {
           Tag.find({where: {name: lang}})
           .then(function(tag) {
@@ -179,9 +156,17 @@ router.patch('/:id', function(req, res, next) {
             });
           })
         }
+      } else {
+        Tag.find({where: {name: language}})
+          .then(function(tag) {
+            UserTagging.create({
+              userId: user.id,
+              tagId: tag.id
+            });
+          })
       }
 
-      if (charity) {
+      if (Array.isArray(charity)) {
         for (let char of charity) {
           Tag.find({where: {name: char}})
           .then(function(tag) {
@@ -191,6 +176,14 @@ router.patch('/:id', function(req, res, next) {
             });
           })
         }
+      } else {
+        Tag.find({where: {name: charity}})
+          .then(function(tag) {
+            UserTagging.create({
+              userId: user.id,
+              tagId: tag.id
+            });
+          })
       }
 
       return user.update({

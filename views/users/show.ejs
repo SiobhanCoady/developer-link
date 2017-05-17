@@ -41,10 +41,10 @@
     <h1><%= user.orgName %></h1>
 
     <p><%= user.description %></p>
-    <p>Charity Type: <%= user.charityType %></p>
     <p>Email: <%= user.email %></p>
     <p>Website: <%= user.website %></p>
     <p>Country: <%= user.country %></p>
+    <p>Charity Type: <span class="chip"><%= user.charityType %></span></p>
     <h3>Projects</h3>
     <% if (projects.length > 0) { %>
       <ul class="user-projects-list">

@@ -11,6 +11,35 @@
           <label for="search">Search</label>
         </div>
       </div>
+      <div class="row">
+        <div class="input-field col s4">
+          <select name="charity" multiple>
+            <option value="" disabled selected>Charity Types</option>
+            <% for (let char of chars) { %>
+              <option value="<%= char.name %>"><%= char.name %></option>
+            <% } %>
+          </select>
+        </div>
+
+        <div class="input-field col s4">
+          <select name="technology" multiple>
+            <option value="" disabled selected>Technologies</option>
+            <% for (let tech of techs) { %>
+              <option value="<%= tech.name %>"><%= tech.name %></option>
+            <% } %>
+          </select>
+        </div>
+
+        <div class="input-field col s4">
+          <select name="language" multiple>
+            <option value="" disabled selected>Languages</option>
+            <% for (let lang of langs) { %>
+              <option value="<%= lang.name %>"><%= lang.name %></option>
+            <% } %>
+          </select>
+        </div>
+
+      </div>
       <button class="btn waves-effect waves-light" type="submit" name="action">Submit
       </button>
     </form>
