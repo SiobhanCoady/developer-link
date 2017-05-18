@@ -8,6 +8,11 @@ module.exports = function(sequelize, DataTypes) {
     ownerId: DataTypes.INTEGER,
     isHidden: DataTypes.BOOLEAN
   }, {
+    customHooks: {
+        afterSave: (models) => {
+          models.ProjectMaterializedView.refresh();
+        }
+    },
     classMethods: {
       associate: function(models) {
         Project.belongsTo(models.User, { as: 'owner' });

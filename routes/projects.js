@@ -4,21 +4,146 @@ const Project = require('../models/index').Project;
 const User = require('../models/index').User;
 const Tag = require('../models/index').Tag;
 const ProjectTagging = require('../models/index').ProjectTagging;
+const ProjectMaterializedView = require('../models/index').ProjectMaterializedView;
 const moment = require('moment');
+const _ = require('underscore');
 
-router.get('/', function(req, res, next) {
-  Project
+async function getSearchResults(search, charity, searchAttributes) {
+  const projects = await ProjectMaterializedView.searchByText(search);
+  const tags = await Tag.findAll();
+
+  const projectIds = projects.map(({id}) => id);
+  let projectDetails = [];
+  let arraysOfProjects = [];
+  let projectIntersection = [];
+
+  if (searchAttributes.length === 0 && charity.length === 0) {
+    projectIntersection = await Project
+      .findAll({
+        where: {
+          id: { $in: projectIds },
+          isHidden: false
+        },
+        include: [
+          {model: User, as: 'owner'},
+          {model: Tag, as: 'Tags'}
+        ]
+      })
+  } else if (searchAttributes.length === 0 && charity.length > 0) {
+    projectIntersection = await Project
+      .findAll({
+        where: {
+          id: { $in: projectIds },
+          isHidden: false
+        },
+        include: [
+          {
+            model: User, as: 'owner',
+            where: {charityType: charity}
+          },
+          {model: Tag, as: 'Tags'}
+        ]
+      })
+  } else {
+    let counter = 0;
+    for (let attr of searchAttributes) {
+      projectDetails[counter] = await Project
+      .findAll({
+        where: {
+          id: { $in: projectIds },
+          isHidden: false
+        },
+        include: [
+          {
+            model: Tag, as: 'Tags',
+            where: {
+              name: attr
+            }
+          }
+        ]
+      })
+      .then(function(projects) {
+        arraysOfProjects[counter] = projects.map(function(project) {return project.id});
+      })
+      counter++;
+    }
+    let filteredProjects = _.intersection.apply(_, arraysOfProjects);
+    projectIntersection = await Project
     .findAll({
-      where: {isHidden: false},
-      order: [['createdAt', 'DESC']],
+      where: {
+        id: { $in: filteredProjects }
+      },
       include: [
         {model: User, as: 'owner'},
         {model: Tag, as: 'Tags'}
       ]
     })
-    .then(function(projects) {
-      res.render('projects/index', { projects: projects });
-    });
+  }
+
+  const tagsByType = {
+    charityType: [],
+    technology: [],
+    language: []
+  };
+
+  tags.forEach((tag) => {
+    tagsByType[tag.tagType].push(tag);
+  });
+
+  return [projectIntersection, tagsByType];
+}
+
+
+router.get('/', function(req, res, next) {
+  if (req.query.search || req.query.charity || req.query.technology || req.query.language) {
+    console.log(req.query);
+    let charity = req.query.charity || [];
+    let technologies = req.query.technology || [];
+    let languages = req.query.language || [];
+
+    const searchAttributes = _.flatten([
+      technologies,
+      languages
+    ]);
+
+    getSearchResults(req.query.search, charity, searchAttributes)
+      .then(([filteredProjects, typedTags]) =>
+        res.render('projects/index', {
+          projects: filteredProjects,
+          techs: typedTags.technology,
+          langs: typedTags.language,
+          chars: typedTags.charityType
+        })
+      );
+
+  } else {
+    Project
+      .findAll({
+        where: {isHidden: false},
+        order: [['createdAt', 'DESC']],
+        include: [
+          {model: User, as: 'owner'},
+          {model: Tag, as: 'Tags'}
+        ]
+      })
+      .then(function(projects) {
+        return Promise.all([
+          projects,
+          Tag.findAll({
+            where: { tagType: 'technology'}
+          }),
+          Tag.findAll({
+            where: { tagType: 'language'}
+          }),
+          Tag.findAll({
+            where: { tagType: 'charityType'}
+          })
+        ])
+      })
+      .then(function([projects, techs, langs, chars]) {
+        res.render('projects/index', { projects, techs, langs, chars });
+      });
+  }
 });
 
 router.get('/new', function(req, res, next){
