@@ -1,3 +1,17 @@
+<% let mainColor = 'white'; %>
+<% let fontColor = 'black-text'; %>
+<% let altFontColor = 'black-text'; %>
+
+<% if (currentUser && currentUser.userType === 'developer') { %>
+  <% mainColor = 'deep-purple'; %>
+  <% fontColor = 'white-text' %>
+  <% altFontColor = 'deep-purple-text' %>
+<% } else if (currentUser && currentUser.userType === 'nonprofit') { %>
+  <% mainColor = 'cyan'; %>
+  <% fontColor = 'white-text' %>
+  <% altFontColor = 'cyan-text' %>
+<% } %>
+
 <%- include('../partials/header') %>
 
 <div class="container">
@@ -49,13 +63,34 @@
     <% if (projects.length > 0) { %>
       <ul class="user-projects-list">
         <% for (let project of projects) { %>
-          <li>
-            <p><%= project.title %></p>
-            <p><%= project.description %></p>
-            <p>Deadline: <%= project.deadline %></p>
-            <p>GitHub: <%= project.github %></p>
-            <hr>
-          </li>
+          <% if (project.isHidden && currentUser && currentUser.id !== project.ownerId) { %>
+          <% } else if (project.isHidden && currentUser && currentUser.id === project.ownerId) { %>
+            <li>
+              <p><%= project.title %> - This project is hidden. Edit project to show.</p>
+              <p><%= project.description %></p>
+              <p>Deadline: <span data-moment-format="LL"><%= project.deadline %></span></p>
+              <p>GitHub: <%= project.github %></p>
+              <p>
+              <a class="waves-effect waves-teal btn" href="/projects/<%= project.id %>/edit">
+                Edit
+              </a>
+              </p>
+              <hr>
+            </li>
+          <% } else { %>
+            <li>
+              <p><%= project.title %></p>
+              <p><%= project.description %></p>
+              <p>Deadline: <%= project.deadline %></p>
+              <p>GitHub: <%= project.github %></p>
+              <p>
+              <a class="waves-effect waves-teal btn" href="/projects/<%= project.id %>/edit">
+              Edit
+              </a>
+              </p>
+              <hr>
+            </li>
+          <% } %>
         <% } %>
       </ul>
     <% } else { %>

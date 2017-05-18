@@ -5,7 +5,8 @@ module.exports = function(sequelize, DataTypes) {
     description: DataTypes.TEXT,
     deadline: DataTypes.DATEONLY,
     github: DataTypes.STRING,
-    ownerId: DataTypes.INTEGER
+    ownerId: DataTypes.INTEGER,
+    isHidden: DataTypes.BOOLEAN
   }, {
     classMethods: {
       associate: function(models) {

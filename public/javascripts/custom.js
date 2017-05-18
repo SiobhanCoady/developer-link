@@ -12,9 +12,13 @@ $(document).ready(function() {
     $('.np-options').removeClass('hidden');
   }
 
-  // if ($('.np-options div select').val() === req.user.charityType) {
-  //   $('.np-options div select option').prop('selected', true);
-  // }
+  // format moment dates
+  $("[data-moment-format]").each((i, el) => {
+    const format = $(el).data("moment-format")
+    const date = $(el).html()
+    $(el).html(moment(date).format(format))
+  })
+
 });
 
 $('#developer').on('click', function(event) {

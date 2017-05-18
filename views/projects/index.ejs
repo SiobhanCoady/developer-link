@@ -12,12 +12,12 @@
         </div>
         <div class="collapsible-body">
           <span><%= project.description %></span>
-          <p>Deadline: <%= project.deadline %></p>
+          <p>Deadline: <span data-moment-format="LL"><%= project.deadline %></span></p>
           <p>GitHub: <%= project.github %></p>
 
           <p>Charity Type:
             <% if (project.owner) { %>
-              <span><%= project.owner.charityType %></span>
+              <div class="chip"><%= project.owner.charityType %></div>
             <% } %>
           </p>
 

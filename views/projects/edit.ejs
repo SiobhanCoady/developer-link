@@ -1,0 +1,97 @@
+<% let mainColor = 'white'; %>
+<% let fontColor = 'black-text'; %>
+<% let altFontColor = 'black-text'; %>
+
+<% if (currentUser && currentUser.userType === 'developer') { %>
+  <% mainColor = 'deep-purple'; %>
+  <% fontColor = 'white-text' %>
+  <% altFontColor = 'deep-purple-text' %>
+<% } else if (currentUser && currentUser.userType === 'nonprofit') { %>
+  <% mainColor = 'cyan'; %>
+  <% fontColor = 'white-text' %>
+  <% altFontColor = 'cyan-text' %>
+<% } %>
+
+<%- include('../partials/header') %>
+
+<div class="container">
+  <h1>Edit Project</h1>
+
+  <div class="row">
+    <form class="col s12" action="/projects/<%= project.id %>" method="POST">
+      <input type="hidden" name="_method" value="PATCH">
+      <div class="row">
+        <div class="input-field col s12">
+          <input name="title" id="title" type="text" class="validate"
+            value="<%= project.title %>">
+          <label for="title">Title</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea name="description" id="description"
+            class="materialize-textarea"><%= project.description %></textarea>
+          <label for="description">Description</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input name="github" id="github" type="text" class="validate"
+            value="<%= project.github %>">
+          <label for="github">GitHub</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input name="deadline" id="deadline" type="date" class="datepicker"
+            value="<%= deadline %>">
+          <label for="deadline">Deadline</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <select name="technology" multiple>
+            <option value="" disabled selected>Choose technologies</option>
+            <% for (let tech of techs) { %>
+              <option
+                <% if (projectTags.includes(tech.id)) { %>
+                  selected
+                <% } %>
+                value="<%= tech.name %>"><%= tech.name %></option>
+            <% } %>
+          </select>
+          <label for="technology">Technologies</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <select name="language" multiple>
+            <option value="" disabled selected>Choose languages</option>
+            <% for (let lang of langs) { %>
+              <option
+                <% if (projectTags.includes(lang.id)) { %>
+                  selected
+                <% } %>
+                value="<%= lang.name %>"><%= lang.name %></option>
+            <% } %>
+          </select>
+          <label for="language">Languages</label>
+        </div>
+      </div>
+      <input name="isHidden" type="checkbox" id="isHidden"
+        <% if (project.isHidden === true) { %>
+          checked="checked"
+        <% } %>
+        />
+      <label for="isHidden">Hide Project</label>
+      <div class="row">
+        <div class="input-field col s12">
+          <button class="btn waves-effect waves-light" type="submit" name="action">Update
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

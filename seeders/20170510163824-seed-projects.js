@@ -19,7 +19,8 @@ const createProjects = (possibleOwners) => {
           description: faker.hacker.phrase(),
           deadline: faker.date.future(),
           github: faker.internet.url(),
-          ownerId: randomOwnerId(possibleOwners)
+          ownerId: randomOwnerId(possibleOwners),
+          isHidden: false
         })
         .catch(function(error) { console.log('Duplicate project') });
       });
