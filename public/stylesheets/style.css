@@ -59,3 +59,7 @@ footer.page-footer {
 .hidden {
   display: none;
 }
+
+.cover-img {
+  opacity: 0.6;
+}

@@ -6,6 +6,7 @@ const Tag = require('../models/index').Tag;
 const UserTagging = require('../models/index').UserTagging;
 const Project = require('../models/index').Project;
 const reviews = require('./reviews');
+// const validate = require('form-validate');
 
 
 /* GET users listing. */
@@ -23,6 +24,27 @@ router.post('/', async function(req, res, next){
   const password = req.body.password;
   const passwordConfirmation = req.body.passwordConfirmation;
 
+  req.Validator
+    .validate('firstName', {
+      required: true
+    })
+    .validate('lastName', {
+      required: true
+    })
+    .validate('password', {
+      length: {
+        min: 4,
+        max: 20
+      }
+    })
+    .validate('email', {
+      email: true
+    })
+
+    req.Validator.getErrors(function(errors){
+      res.render('users/new', {errors: errors});
+    });
+
   if (password === passwordConfirmation) {
     User.create({
       firstName: firstName,
@@ -35,19 +57,19 @@ router.post('/', async function(req, res, next){
       req.login(user, function(err){
         if(err) {
           req.flash('error', 'Something went wrong');
-          res.redirect('/sessions/new');
+          res.redirect('/sessions/new', {errors: err, user: user});
         } else {
           req.flash('info', 'Please complete your profile');
-          res.redirect(`/users/${user.id}/edit`);
+          res.redirect(`/users/${user.id}/edit`, {errors: err, user: user});
         }
       })
     })
     .catch(function(err) {
-      res.render('users/new', {errors: err});
+      res.render('users/new', {errors: err, user: user});
     })
   } else {
     req.flash('error', 'Password does not match password confirmation');
-    res.redirect('/users/new');
+    res.redirect('/users/new', {errors: err, user: user});
   }
 });
 

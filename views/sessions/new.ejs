@@ -3,11 +3,16 @@
 <div class="container">
   <h1>Sign In</h1>
 
+  <% if (errors) { %>
+    <div><%= errors %></div>
+  <% } %>
+
   <div class="row">
     <form class="col s12" action="/sessions" method="post">
       <div class="row">
         <div class="input-field col s12">
-          <input name="email" id="email" type="email" class="validate">
+          <input name="email" id="email" type="email" class="validate"
+            value="<%= user.email %>">
           <label for="email">Email</label>
         </div>
       </div>
