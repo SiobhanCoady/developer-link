@@ -14,9 +14,11 @@ async function getSearchResults(search, searchAttributes) {
 
   const devIds = developers.map(({id}) => id);
   let devDetails = [];
+  let arraysOfDevs = [];
+  let devIntersection = [];
 
-  if (searchAttributes[0] === undefined) {
-    devDetails = await User
+  if (searchAttributes.length === 0) {
+    devIntersection = await User
       .findAll({
         where: {
           id: { $in: devIds },
@@ -24,7 +26,9 @@ async function getSearchResults(search, searchAttributes) {
         }
       })
   } else {
-    devDetails = await User
+    let counter = 0;
+    for (let attr of searchAttributes) {
+      devDetails[counter] = await User
       .findAll({
         where: {
           id: { $in: devIds },
@@ -34,11 +38,23 @@ async function getSearchResults(search, searchAttributes) {
           {
             model: Tag, as: 'Tags',
             where: {
-              name: { $in: searchAttributes }
+              name: attr
             }
           }
         ]
       })
+      .then(function(devs) {
+        arraysOfDevs[counter] = devs.map(function(dev) {return dev.id});
+      })
+      counter++;
+    }
+    let filteredDevs = _.intersection.apply(_, arraysOfDevs);
+    devIntersection = await User
+    .findAll({
+      where: {
+        id: { $in: filteredDevs }
+      }
+    })
   }
 
   const tagsByType = {
@@ -50,18 +66,22 @@ async function getSearchResults(search, searchAttributes) {
   tags.forEach((tag) => {
     tagsByType[tag.tagType].push(tag);
   });
-  
-  return [devDetails, tagsByType];
+
+  return [devIntersection, tagsByType];
 }
 
 
 router.get('/', function(req, res, next) {
   if (req.query.search || req.query.charity || req.query.technology || req.query.language) {
     console.log(req.query);
+    let charities = req.query.charity || [];
+    let technologies = req.query.technology || [];
+    let languages = req.query.language || [];
+
     const searchAttributes = _.flatten([
-      req.query.charity,
-      req.query.technology,
-      req.query.language
+      charities,
+      technologies,
+      languages
     ]);
 
     getSearchResults(req.query.search, searchAttributes)
