@@ -6,6 +6,7 @@ const Tag = require('../models/index').Tag;
 const UserTagging = require('../models/index').UserTagging;
 const Project = require('../models/index').Project;
 const reviews = require('./reviews');
+const messages = require('./messages');
 // const validate = require('form-validate');
 
 
@@ -24,26 +25,26 @@ router.post('/', async function(req, res, next){
   const password = req.body.password;
   const passwordConfirmation = req.body.passwordConfirmation;
 
-  req.Validator
-    .validate('firstName', {
-      required: true
-    })
-    .validate('lastName', {
-      required: true
-    })
-    .validate('password', {
-      length: {
-        min: 4,
-        max: 20
-      }
-    })
-    .validate('email', {
-      email: true
-    })
-
-    req.Validator.getErrors(function(errors){
-      res.render('users/new', {errors: errors});
-    });
+  // req.Validator
+  //   .validate('firstName', {
+  //     required: true
+  //   })
+  //   .validate('lastName', {
+  //     required: true
+  //   })
+  //   .validate('password', {
+  //     length: {
+  //       min: 4,
+  //       max: 20
+  //     }
+  //   })
+  //   .validate('email', {
+  //     email: true
+  //   })
+  //
+  //   req.Validator.getErrors(function(errors){
+  //     res.render('users/new', {errors: errors});
+  //   });
 
   if (password === passwordConfirmation) {
     User.create({
@@ -57,19 +58,19 @@ router.post('/', async function(req, res, next){
       req.login(user, function(err){
         if(err) {
           req.flash('error', 'Something went wrong');
-          res.redirect('/sessions/new', {errors: err, user: user});
+          res.redirect('/sessions/new');
         } else {
           req.flash('info', 'Please complete your profile');
-          res.redirect(`/users/${user.id}/edit`, {errors: err, user: user});
+          res.redirect(`/users/${user.id}/edit`);
         }
       })
     })
     .catch(function(err) {
-      res.render('users/new', {errors: err, user: user});
+      res.render('users/new', {errors: err});
     })
   } else {
     req.flash('error', 'Password does not match password confirmation');
-    res.redirect('/users/new', {errors: err, user: user});
+    res.redirect('/users/new');
   }
 });
 
@@ -232,5 +233,6 @@ router.patch('/:id', function(req, res, next) {
 })
 
 router.use('/:userId/reviews', reviews);
+router.use('/:userId/messages', messages);
 
 module.exports = router;
