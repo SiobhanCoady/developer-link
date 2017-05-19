@@ -84,9 +84,11 @@
               <p>Deadline: <%= project.deadline %></p>
               <p>GitHub: <%= project.github %></p>
               <p>
-              <a class="waves-effect waves-teal btn" href="/projects/<%= project.id %>/edit">
-              Edit
-              </a>
+              <% if (currentUser && currentUser.id === project.ownerId) { %>
+                <a class="waves-effect waves-teal btn" href="/projects/<%= project.id %>/edit">
+                  Edit
+                </a>
+              <% } %>
               </p>
               <hr>
             </li>
