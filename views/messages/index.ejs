@@ -9,9 +9,11 @@
     <% for (let message of rcvdMessages) { %>
       <li>
         <p>
+          From:
           <a href="/users/<%= currentUser.id %>/messages/<%= message.id %>">
-            From: <%= message.sender.firstName %> <%= message.sender.lastName %>
+          <%= message.sender.firstName %> <%= message.sender.lastName %>
           </a>
+          - <%= message.createdAt %>
         </p>
         <hr>
       </li>
@@ -29,9 +31,11 @@
     <% for (let message of sentMessages) { %>
       <li>
         <p>
+          To: 
           <a href="/users/<%= currentUser.id %>/messages/<%= message.id %>">
-            To: <%= message.receiver.firstName %> <%= message.receiver.lastName %>
+            <%= message.receiver.firstName %> <%= message.receiver.lastName %>
           </a>
+          - <%= message.createdAt %>
         </p>
         <hr>
       </li>

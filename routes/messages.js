@@ -12,6 +12,7 @@ router.get('/', function(req, res) {
   Message
     .findAll({
       where: { receiverId: currentUserId },
+      order: [['createdAt', 'DESC']],
       include: [
         { model: User, as: 'receiver' },
         { model: User, as: 'sender' }
@@ -23,6 +24,7 @@ router.get('/', function(req, res) {
         Message
         .findAll({
           where: { senderId: currentUserId },
+          order: [['createdAt', 'DESC']],
           include: [
             { model: User, as: 'receiver' },
             { model: User, as: 'sender' }
