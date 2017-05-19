@@ -8,7 +8,7 @@
   <li>
     <p><%= message.body %></p>
     <p>From: <%= message.sender.firstName %> <%= message.sender.lastName %></p>
-    <p>Date: <%= message.createdAt %></p>
+    <p>Date: <span data-moment-format="LLL"><%= message.createdAt %></span></p>
   </li>
 </ul>
 <hr>
@@ -19,7 +19,7 @@
       <li>
         <p><%= response.body %></p>
         <p>From: <%= response.sender.firstName %> <%= response.sender.lastName %></p>
-        <p><%= response.createdAt %></p>
+        <p>Date: <span data-moment-format="LLL"><%= response.createdAt %></span></p>
         <hr>
       </li>
     <% } %>

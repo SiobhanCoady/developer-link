@@ -81,7 +81,7 @@
             <li>
               <p><%= project.title %></p>
               <p><%= project.description %></p>
-              <p>Deadline: <%= project.deadline %></p>
+              <p>Deadline: <span data-moment-format="LL"><%= project.deadline %></span></p>
               <p>GitHub: <%= project.github %></p>
               <p>
               <% if (currentUser && currentUser.id === project.ownerId) { %>

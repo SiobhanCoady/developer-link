@@ -47,7 +47,7 @@ router.post('/', async function(req, res, next){
   //     res.render('users/new', {errors: errors});
   //   });
 
-  if (password === passwordConfirmation) {
+  if (password !== '' && password === passwordConfirmation) {
     User.create({
       firstName: firstName,
       lastName: lastName,
@@ -67,11 +67,11 @@ router.post('/', async function(req, res, next){
       })
     })
     .catch(function(err) {
-      res.render('users/new', {errors: err});
+      res.render('users/new', {errors: err, user: req.body});
     })
   } else {
     req.flash('error', 'Password does not match password confirmation');
-    res.redirect('/users/new');
+    res.render('users/new', {errors: ['Password does not match password confirmation'], user: req.body});
   }
 });
 
