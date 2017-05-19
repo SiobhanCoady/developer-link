@@ -99,8 +99,10 @@
 
   <% } %>
 
-  <!-- Modal Trigger -->
-  <a class="waves-effect waves-light btn" href="#modal1">Contact</a>
+  <% if (currentUser) { %>
+    <!-- Modal Trigger -->
+    <a class="waves-effect waves-light btn" href="#modal1">Contact</a>
+  <% } %>
 
   <!-- Modal Structure -->
   <div id="modal1" class="modal">
