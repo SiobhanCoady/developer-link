@@ -2,9 +2,11 @@
 
 <h1>MESSAGES</h1>
 
-<% if (messages.length > 0) { %>
+<h3>Received Messages</h3>
+
+<% if (rcvdMessages.length > 0) { %>
   <ul class="messages-list">
-    <% for (let message of messages) { %>
+    <% for (let message of rcvdMessages) { %>
       <li>
         <p>
           <a href="/users/<%= currentUser.id %>/messages/<%= message.id %>">
@@ -16,7 +18,27 @@
     <% } %>
   </ul>
 <% } else { %>
-  <p>This account does not currently have any messages.</p>
+  <p>This account does not currently have any received messages.</p>
+<% } %>
+
+
+<h3>Sent Messages</h3>
+
+<% if (sentMessages.length > 0) { %>
+  <ul class="messages-list">
+    <% for (let message of sentMessages) { %>
+      <li>
+        <p>
+          <a href="/users/<%= currentUser.id %>/messages/<%= message.id %>">
+            To: <%= message.receiver.firstName %> <%= message.receiver.lastName %>
+          </a>
+        </p>
+        <hr>
+      </li>
+    <% } %>
+  </ul>
+<% } else { %>
+  <p>This account does not currently have any sent messages.</p>
 <% } %>
 
 <%- include('../partials/footer') %>

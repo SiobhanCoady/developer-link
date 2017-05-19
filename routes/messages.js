@@ -17,9 +17,22 @@ router.get('/', function(req, res) {
         { model: User, as: 'sender' }
       ]
     })
-    .then(function(messages) {
+    .then(function(rcvdMessages) {
+      return Promise.all([
+        rcvdMessages,
+        Message
+        .findAll({
+          where: { senderId: currentUserId },
+          include: [
+            { model: User, as: 'receiver' },
+            { model: User, as: 'sender' }
+          ]
+        })
+      ])
+    })
+    .then(function([rcvdMessages, sentMessages]) {
       if (req.user) {
-        res.render('messages/index', { messages });
+        res.render('messages/index', { rcvdMessages, sentMessages });
       } else {
         res.redirect('/');
       }
@@ -51,7 +64,11 @@ router.get('/:id', function(req, res) {
       ])
     })
     .then(function([message, responses]) {
-      res.render('messages/show', { message, responses });
+      if (req.user) {
+        res.render('messages/show', { message, responses });
+      } else {
+        res.redirect('/');
+      }
     })
 });
 
