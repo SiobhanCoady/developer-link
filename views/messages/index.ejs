@@ -1,0 +1,22 @@
+<%- include('../partials/header') %>
+
+<h1>MESSAGES</h1>
+
+<% if (messages.length > 0) { %>
+  <ul class="messages-list">
+    <% for (let message of messages) { %>
+      <li>
+        <p>
+          <a href="/users/<%= currentUser.id %>/messages/<%= message.id %>">
+            From: <%= message.sender.firstName %> <%= message.sender.lastName %>
+          </a>
+        </p>
+        <hr>
+      </li>
+    <% } %>
+  </ul>
+<% } else { %>
+  <p>This account does not currently have any messages.</p>
+<% } %>
+
+<%- include('../partials/footer') %>

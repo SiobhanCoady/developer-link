@@ -12,7 +12,7 @@ var flash = require('connect-flash');
 var Sequelize = require('sequelize'),
 	passportLocalSequelize = require('passport-local-sequelize');
 const bcrypt = require('bcrypt');
-const validate = require('form-validate');
+// const validate = require('form-validate');
 
 var mydb = new Sequelize('fp_dev', 'myuser', 'mypass', {
 	dialect: 'postgres',
@@ -53,11 +53,11 @@ app.use(methodOverride(function (req, res) {
 }));
 app.use(cookieParser());
 
-// Configure form-validate
-var validationConfig = {
-    //You can configure certain aspects of the validation module
-};
-app.use(validate(app, validationConfig));
+// // Configure form-validate
+// var validationConfig = {
+//     //You can configure certain aspects of the validation module
+// };
+// app.use(validate(app, validationConfig));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash());

@@ -1,0 +1,42 @@
+<%- include('../partials/header') %>
+
+<h1>MESSAGES</h1>
+
+<ul class="message">
+  <li>
+    <p><%= message.body %></p>
+    <p>From: <%= message.sender.firstName %> <%= message.sender.lastName %></p>
+    <p>Date: <%= message.createdAt %></p>
+  </li>
+</ul>
+<hr>
+
+<% if (responses.length > 0) { %>
+  <ul class="responses-list">
+    <% for (let response of responses) { %>
+      <li>
+        <p><%= response.body %></p>
+        <p>From: <%= response.sender.firstName %> <%= response.sender.lastName %></p>
+        <p><%= response.createdAt %></p>
+        <hr>
+      </li>
+    <% } %>
+  </ul>
+<% } %>
+
+<h3>Reply</h3>
+
+<div class="row">
+  <form class="col s12" action="/users/<%= currentUser.id %>/messages/<%= message.id %>/responses" method="post">
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea name="body" id="body" class="materialize-textarea"></textarea>
+        <label for="body">Body</label>
+      </div>
+    </div>
+    <button class="btn waves-effect waves-light" type="submit" name="action">Send
+    </button>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>

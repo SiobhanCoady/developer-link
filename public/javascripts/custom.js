@@ -5,6 +5,7 @@ $('.datepicker').pickadate({
 
 $(document).ready(function() {
   $('select').material_select();
+  $('.modal').modal();
 
   if ($('input:radio').hasClass('dev-checked')) {
     $('.dev-options').removeClass('hidden');
