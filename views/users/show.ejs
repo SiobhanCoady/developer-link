@@ -111,20 +111,20 @@
     <div class="modal-content">
       <h4>Send a Message</h4>
       <p>
-        <form class="col s12" action="/users/<%= user.id %>/messages" method="post">
+        <form id="send-message-form" class="col s12" action="/users/<%= user.id %>/messages" method="post">
           <div class="row">
             <div class="input-field col s12">
               <textarea name="body" id="body" class="materialize-textarea"></textarea>
               <label for="body">Body</label>
             </div>
           </div>
-          <button class="btn waves-effect waves-light" type="submit" name="action">Send
-          </button>
         </form>
       </p>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+      <button class="btn waves-effect waves-light" id="send-message" type="submit" name="action">Send
+      </button>
     </div>
   </div>
 

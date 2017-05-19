@@ -28,6 +28,10 @@ $(document).ready(function() {
     $('.search-form').submit();
   });
 
+  $('#send-message').on('click', function(event) {
+    $('#send-message-form').submit();
+  })
+
 });
 
 // $('#developer').on('click', function(event) {
