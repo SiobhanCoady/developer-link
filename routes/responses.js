@@ -3,6 +3,7 @@ const router = express.Router({mergeParams: true});
 const Message = require('../models/index').Message;
 const Response = require('../models/index').Response;
 var passport = require('passport');
+const moment = require('moment');
 
 // Responses#create
 router.post('/', function(req, res) {

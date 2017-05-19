@@ -5,6 +5,7 @@ const Message = require('../models/index').Message;
 const Response = require('../models/index').Response;
 const responses = require('./responses');
 var passport = require('passport');
+const moment = require('moment');
 
 // Messages#index
 router.get('/', function(req, res) {
