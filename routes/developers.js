@@ -73,7 +73,6 @@ async function getSearchResults(search, searchAttributes) {
 
 router.get('/', function(req, res, next) {
   if (req.query.search || req.query.charity || req.query.technology || req.query.language) {
-    console.log(req.query);
     let charities = req.query.charity || [];
     let technologies = req.query.technology || [];
     let languages = req.query.language || [];
@@ -90,7 +89,11 @@ router.get('/', function(req, res, next) {
           developers: filteredDevelopers,
           techs: typedTags.technology,
           langs: typedTags.language,
-          chars: typedTags.charityType
+          chars: typedTags.charityType,
+          selectedChars: charities,
+          selectedTechs: technologies,
+          selectedLangs: languages,
+          searchVal: req.query.search
         })
       );
 
@@ -114,7 +117,16 @@ router.get('/', function(req, res, next) {
         ])
       })
       .then(function([developers, techs, langs, chars]) {
-        res.render('developers/index', { developers, techs, langs, chars });
+        res.render('developers/index', {
+          developers,
+          techs,
+          langs,
+          chars,
+          selectedChars: [],
+          selectedTechs: [],
+          selectedLangs: [],
+          searchVal: ''
+        });
       });
   }
 });

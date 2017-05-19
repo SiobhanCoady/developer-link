@@ -12,6 +12,7 @@ var flash = require('connect-flash');
 var Sequelize = require('sequelize'),
 	passportLocalSequelize = require('passport-local-sequelize');
 const bcrypt = require('bcrypt');
+const moment = require('moment');
 // const validate = require('form-validate');
 
 var mydb = new Sequelize('fp_dev', 'myuser', 'mypass', {

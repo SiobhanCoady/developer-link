@@ -4,43 +4,59 @@
   <h1>Search Developers</h1>
 
   <div class="row">
-    <form class="col s12">
+    <form class="col s12 search-form">
       <div class="row">
         <div class="input-field col s12">
-          <input id="search" type="text" name="search">
+          <input class="search" type="text" name="search" value="<%= searchVal %>">
           <label for="search">Search</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s4">
-          <select name="charity" multiple>
+          <select name="charity" class="charity-form" multiple>
             <option value="" disabled selected>Charity Types</option>
             <% for (let char of chars) { %>
-              <option value="<%= char.name %>"><%= char.name %></option>
+              <option
+                <% if (selectedChars.includes(char.name)) { %>
+                  selected
+                <% } %>
+                value="<%= char.name %>"><%= char.name %></option>
             <% } %>
           </select>
         </div>
 
         <div class="input-field col s4">
-          <select name="technology" multiple>
+          <select name="technology" class="technology-form" multiple>
             <option value="" disabled selected>Technologies</option>
             <% for (let tech of techs) { %>
-              <option value="<%= tech.name %>"><%= tech.name %></option>
+              <option
+                <% if (selectedTechs.includes(tech.name)) { %>
+                  selected
+                <% } %>
+                value="<%= tech.name %>"><%= tech.name %></option>
             <% } %>
           </select>
         </div>
 
         <div class="input-field col s4">
-          <select name="language" multiple>
+          <select name="language" class="language-form" multiple>
             <option value="" disabled selected>Languages</option>
             <% for (let lang of langs) { %>
-              <option value="<%= lang.name %>"><%= lang.name %></option>
+              <option
+                <% if (selectedLangs.includes(lang.name)) { %>
+                  selected
+                <% } %>
+                value="<%= lang.name %>"><%= lang.name %></option>
             <% } %>
           </select>
         </div>
 
       </div>
-      <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+      <button class="btn waves-effect waves-light"
+        type="submit" name="action">Submit
+      </button>
+      <button class="btn waves-effect waves-light reset-form"
+        type="reset" name="action">Reset
       </button>
     </form>
   </div>

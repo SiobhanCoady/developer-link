@@ -112,7 +112,11 @@ router.get('/', function(req, res, next) {
           projects: filteredProjects,
           techs: typedTags.technology,
           langs: typedTags.language,
-          chars: typedTags.charityType
+          chars: typedTags.charityType,
+          selectedChar: charity,
+          selectedTechs: technologies,
+          selectedLangs: languages,
+          searchVal: req.query.search
         })
       );
 
@@ -141,7 +145,16 @@ router.get('/', function(req, res, next) {
         ])
       })
       .then(function([projects, techs, langs, chars]) {
-        res.render('projects/index', { projects, techs, langs, chars });
+        res.render('projects/index', {
+          projects,
+          techs,
+          langs,
+          chars,
+          selectedChar: [],
+          selectedTechs: [],
+          selectedLangs: [],
+          searchVal: ''
+        });
       });
   }
 });
