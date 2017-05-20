@@ -70,6 +70,23 @@ async function getSearchResults(search, searchAttributes) {
   return [devIntersection, tagsByType];
 }
 
+async function getCoords(developers) {
+  let devCoords = [];
+  let layer = 1;
+  for (let dev of developers) {
+    if (dev.latitude) {
+      devCoords.push([
+        `${dev.firstName} ${dev.lastName}`,
+        dev.latitude,
+        dev.longitude,
+        layer
+      ]);
+      layer++;
+    }
+  }
+  return await devCoords;
+}
+
 
 router.get('/', function(req, res, next) {
   if (req.query.search || req.query.charity || req.query.technology || req.query.language) {
@@ -113,15 +130,17 @@ router.get('/', function(req, res, next) {
           }),
           Tag.findAll({
             where: { tagType: 'charityType'}
-          })
+          }),
+          getCoords(developers)
         ])
       })
-      .then(function([developers, techs, langs, chars]) {
+      .then(function([developers, techs, langs, chars, devCoords]) {
         res.render('developers/index', {
           developers,
           techs,
           langs,
           chars,
+          devCoords,
           selectedChars: [],
           selectedTechs: [],
           selectedLangs: [],
