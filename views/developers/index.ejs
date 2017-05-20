@@ -85,12 +85,12 @@
 
 <script>
   function initMap() {
-    var center = {lat: 0, lng: 0};
+    var center = {lat: 20, lng: 0};
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 13,
+      zoom: 2,
       center: center
     });
-    for (let dev of <%= devCoords %>) {
+    for (let dev of <%- JSON.stringify(devCoords) %>) {
       var marker = new google.maps.Marker({
         position: {lat: dev[1], lng: dev[2]},
         map: map,
