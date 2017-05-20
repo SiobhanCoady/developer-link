@@ -103,7 +103,7 @@
 
   <% } %>
 
-  <% if (currentUser) { %>
+  <% if (currentUser && currentUser.id !== user.id) { %>
     <!-- Modal Trigger -->
     <a class="waves-effect waves-light btn" href="#modal1">Contact</a>
   <% } %>
