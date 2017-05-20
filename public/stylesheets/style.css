@@ -68,3 +68,7 @@ footer.page-footer {
   height: 200px;
   width: auto;
 }
+
+#map {
+  height: 400px;
+}

@@ -13,6 +13,8 @@ var Sequelize = require('sequelize'),
 	passportLocalSequelize = require('passport-local-sequelize');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
+var request = require('request');
+var rp = require('request-promise');
 // const validate = require('form-validate');
 
 var mydb = new Sequelize('fp_dev', 'myuser', 'mypass', {

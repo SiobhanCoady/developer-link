@@ -8,6 +8,8 @@ const Project = require('../models/index').Project;
 const reviews = require('./reviews');
 const messages = require('./messages');
 const moment = require('moment');
+const request = require('request');
+var rp = require('request-promise');
 // const validate = require('form-validate');
 
 
@@ -91,7 +93,6 @@ router.get('/:id', function(req, res) {
           ]
         }),
         user.getTags(),
-        // user.getCharity(),
         Project.findAll({
           where: { ownerId: user.id },
           order: [['createdAt', 'DESC']]
@@ -102,7 +103,6 @@ router.get('/:id', function(req, res) {
       res.render('users/show', {user: user,
                                 reviews: reviews,
                                 tags: tags,
-                                // charity: charity,
                                 projects: projects
                                })
     })
@@ -146,11 +146,29 @@ router.patch('/:id', function(req, res, next) {
     province, country, description, github, linkedin, orgName,
     charityType, technology, language, charity, avatar} = req.body;
 
-  console.log(">>>>>>>>>>>>>>REQ BODY", req.body);
+  const options = {
+    uri: `https://maps.googleapis.com/maps/api/geocode/json?address=${city},+${country}&key=${process.env.GOOGLE_MAPS_API_TOKEN}`,
+    headers: {
+        'User-Agent': 'Request-Promise'
+    },
+    json: true
+  };
 
-  User
-    .findById(id)
-    .then(function(user) {
+  rp(options)
+    .then(function (body) {
+      return Promise.all([
+        body.results[0].geometry.location.lat,
+        body.results[0].geometry.location.lng
+      ])
+    })
+    .then(function([latitude, longitude]) {
+      return Promise.all([
+        latitude,
+        longitude,
+        User.findById(id)
+      ])
+    })
+    .then(function([latitude, longitude, user]) {
       UserTagging.destroy({where: {userId: user.id}});
       if (Array.isArray(technology)) {
         for (let tech of technology) {
@@ -222,6 +240,8 @@ router.patch('/:id', function(req, res, next) {
         city: city,
         province: province,
         country: country,
+        latitude: latitude,
+        longitude: longitude,
         description: description,
         github: github,
         linkedin: linkedin,
