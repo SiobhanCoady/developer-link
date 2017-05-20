@@ -33,7 +33,8 @@ const users = Array
       github: (determinedUserType === 'developer' ? faker.internet.url() : ''),
       linkedin: (determinedUserType === 'developer' ? faker.internet.url() : ''),
       orgName: (determinedUserType === 'nonprofit' ? faker.company.companyName() : ''),
-      charityType: (determinedUserType === 'nonprofit' ? charities[Math.floor(Math.random() * charities.length)] : '')
+      charityType: (determinedUserType === 'nonprofit' ? charities[Math.floor(Math.random() * charities.length)] : ''),
+      avatar: 'avatarneutral2.png'
     }).then(function(user) {
       // return geocoder.geocode(user.country, function ( err, data ) {
       //   user.updateAttributes({

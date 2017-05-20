@@ -27,7 +27,8 @@ module.exports = function(sequelize, DataTypes) {
                           'Education',
                           'Arts and Culture',
                           ''
-                        )
+                        ),
+    avatar: DataTypes.STRING
   }, {
     customHooks: {
         afterSave: (models) => {
