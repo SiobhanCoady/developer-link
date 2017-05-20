@@ -101,9 +101,17 @@ router.get('/', function(req, res, next) {
     ]);
 
     getSearchResults(req.query.search, searchAttributes)
-      .then(([filteredDevelopers, typedTags]) =>
+      .then(function([filteredDevelopers, typedTags]) {
+        return Promise.all([
+          filteredDevelopers,
+          typedTags,
+          getCoords(filteredDevelopers)
+        ])
+      })
+      .then(([filteredDevelopers, typedTags, devCoords]) =>
         res.render('developers/index', {
           developers: filteredDevelopers,
+          devCoords: devCoords,
           techs: typedTags.technology,
           langs: typedTags.language,
           chars: typedTags.charityType,

@@ -61,6 +61,8 @@
     </form>
   </div>
 
+  <div id="map"></div>
+
   <h1>Browse Projects</h1>
 
   <ul class="collapsible popout projects-list" data-collapsible="expandable">
@@ -114,5 +116,27 @@
     <% } %>
 
 </div>
+
+<script>
+  function initMap() {
+    var center = {lat: 20, lng: 0};
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 2,
+      center: center
+    });
+    for (let project of <%- JSON.stringify(projectCoords) %>) {
+      var marker = new google.maps.Marker({
+        position: {lat: project[1], lng: project[2]},
+        map: map,
+        title: project[0],
+        zIndex: project[3]
+      });
+    }
+  }
+</script>
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.GOOGLE_MAPS_API_TOKEN %>&callback=initMap">
+</script>
 
 <%- include('../partials/footer') %>

@@ -93,6 +93,23 @@ async function getSearchResults(search, charity, searchAttributes) {
   return [projectIntersection, tagsByType];
 }
 
+async function getCoords(projects) {
+  let projectCoords = [];
+  let layer = 1;
+  for (let project of projects) {
+    if (project.owner.latitude) {
+      projectCoords.push([
+        project.title,
+        project.owner.latitude,
+        project.owner.longitude,
+        layer
+      ]);
+      layer++;
+    }
+  }
+  return await projectCoords;
+}
+
 
 router.get('/', function(req, res, next) {
   if (req.query.search || req.query.charity || req.query.technology || req.query.language) {
@@ -107,9 +124,17 @@ router.get('/', function(req, res, next) {
     ]);
 
     getSearchResults(req.query.search, charity, searchAttributes)
-      .then(([filteredProjects, typedTags]) =>
+      .then(function([filteredProjects, typedTags]) {
+        return Promise.all([
+          filteredProjects,
+          typedTags,
+          getCoords(filteredProjects)
+        ])
+      })
+      .then(function([filteredProjects, typedTags, projectCoords]) {
         res.render('projects/index', {
           projects: filteredProjects,
+          projectCoords: projectCoords,
           techs: typedTags.technology,
           langs: typedTags.language,
           chars: typedTags.charityType,
@@ -118,7 +143,7 @@ router.get('/', function(req, res, next) {
           selectedLangs: languages,
           searchVal: req.query.search
         })
-      );
+      });
 
   } else {
     Project
@@ -141,15 +166,17 @@ router.get('/', function(req, res, next) {
           }),
           Tag.findAll({
             where: { tagType: 'charityType'}
-          })
+          }),
+          getCoords(projects)
         ])
       })
-      .then(function([projects, techs, langs, chars]) {
+      .then(function([projects, techs, langs, chars, projectCoords]) {
         res.render('projects/index', {
           projects,
           techs,
           langs,
           chars,
+          projectCoords,
           selectedChar: [],
           selectedTechs: [],
           selectedLangs: [],
