@@ -63,3 +63,8 @@ footer.page-footer {
 .cover-img {
   opacity: 0.6;
 }
+
+.avatar {
+  height: 200px;
+  width: auto;
+}

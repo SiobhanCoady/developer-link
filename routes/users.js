@@ -144,7 +144,9 @@ router.patch('/:id', function(req, res, next) {
   const id = req.params.id;
   const {firstName, lastName, email, userType, website, address, city,
     province, country, description, github, linkedin, orgName,
-    charityType, technology, language, charity} = req.body;
+    charityType, technology, language, charity, avatar} = req.body;
+
+  console.log(">>>>>>>>>>>>>>REQ BODY", req.body);
 
   User
     .findById(id)
@@ -224,7 +226,8 @@ router.patch('/:id', function(req, res, next) {
         github: github,
         linkedin: linkedin,
         orgName: orgName,
-        charityType: charityType
+        charityType: charityType,
+        avatar: avatar
       });
     })
     .then(function(user) {
