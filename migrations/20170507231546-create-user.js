@@ -74,7 +74,8 @@ module.exports = {
                             )
       },
       avatar: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: 'avatarneutral2.png'
       },
       createdAt: {
         allowNull: false,

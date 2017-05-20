@@ -17,6 +17,8 @@ const users = Array
   .map(function() {
     let num = Math.floor(Math.random() * 10) + 1
     const determinedUserType = num > 5 ? 'developer' : 'nonprofit'
+    let lat = Math.floor(Math.random() * 120) - 60;
+    let lng = Math.floor(Math.random() * 360) - 180;
 
     let u = User.create({
       firstName: faker.name.firstName(),
@@ -28,6 +30,8 @@ const users = Array
       city: faker.address.city(),
       province: faker.address.stateAbbr(),
       country: faker.address.country(),
+      latitude: lat,
+      longitude: lng,
       description: faker.hacker.phrase(),
       userType: determinedUserType,
       github: (determinedUserType === 'developer' ? faker.internet.url() : ''),
@@ -35,15 +39,6 @@ const users = Array
       orgName: (determinedUserType === 'nonprofit' ? faker.company.companyName() : ''),
       charityType: (determinedUserType === 'nonprofit' ? charities[Math.floor(Math.random() * charities.length)] : ''),
       avatar: 'avatarneutral2.png'
-    }).then(function(user) {
-      // return geocoder.geocode(user.country, function ( err, data ) {
-      //   user.updateAttributes({
-      //     latitude: data.results[0].geometry.location.lat,
-      //     longitude: data.results[0].geometry.location.lng
-      //
-      //   });
-        return user;
-      // })
     })
     return u;
   });
