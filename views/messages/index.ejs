@@ -1,48 +1,46 @@
 <%- include('../partials/header') %>
 
-<h1>MESSAGES</h1>
+<div class="container">
+  <h1>MESSAGES</h1>
 
-<h3>Received Messages</h3>
+  <h3>Received Messages</h3>
 
-<% if (rcvdMessages.length > 0) { %>
-  <ul class="messages-list">
-    <% for (let message of rcvdMessages) { %>
-      <li>
-        <p>
-          From:
-          <a href="/users/<%= currentUser.id %>/messages/<%= message.id %>">
-          <%= message.sender.firstName %> <%= message.sender.lastName %>
-          </a>
-          - <span data-moment-format="LLL"><%= message.createdAt %></span>
-        </p>
-        <hr>
-      </li>
-    <% } %>
-  </ul>
-<% } else { %>
-  <p>This account does not currently have any received messages.</p>
-<% } %>
+  <% if (rcvdMessages.length > 0) { %>
+    <ul class="collection messages-list">
+      <% for (let message of rcvdMessages) { %>
+        <li class="collection-item avatar">
+          <img src="/images/<%= message.sender.avatar %>" class="circle">
+          <p>
+            From: <%= message.sender.firstName %> <%= message.sender.lastName %>
+            <br><span data-moment-format="LLL"><%= message.createdAt %></span>
+          </p>
+          <a href="/users/<%= currentUser.id %>/messages/<%= message.id %>" class="secondary-content"><i class="material-icons">chat_bubble_outline</i></a>
+        </li>
+      <% } %>
+    </ul>
+  <% } else { %>
+    <p>This account does not currently have any received messages.</p>
+  <% } %>
 
 
-<h3>Sent Messages</h3>
+  <h3>Sent Messages</h3>
 
-<% if (sentMessages.length > 0) { %>
-  <ul class="messages-list">
-    <% for (let message of sentMessages) { %>
-      <li>
-        <p>
-          To:
-          <a href="/users/<%= currentUser.id %>/messages/<%= message.id %>">
-            <%= message.receiver.firstName %> <%= message.receiver.lastName %>
-          </a>
-          - <span data-moment-format="LLL"><%= message.createdAt %></span>
-        </p>
-        <hr>
-      </li>
-    <% } %>
-  </ul>
-<% } else { %>
-  <p>This account does not currently have any sent messages.</p>
-<% } %>
+  <% if (sentMessages.length > 0) { %>
+    <ul class="collection messages-list">
+      <% for (let message of sentMessages) { %>
+        <li class="collection-item avatar">
+          <img src="/images/<%= message.receiver.avatar %>" class="circle">
+          <p>
+            To: <%= message.receiver.firstName %> <%= message.receiver.lastName %>
+            <br><span data-moment-format="LLL"><%= message.createdAt %></span>
+          </p>
+          <a href="/users/<%= currentUser.id %>/messages/<%= message.id %>" class="secondary-content"><i class="material-icons">chat_bubble_outline</i></a>
+        </li>
+      <% } %>
+    </ul>
+  <% } else { %>
+    <p>This account does not currently have any sent messages.</p>
+  <% } %>
+</div>
 
 <%- include('../partials/footer') %>
