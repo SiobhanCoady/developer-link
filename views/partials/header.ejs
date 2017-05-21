@@ -42,6 +42,24 @@
       <li><a href="/sessions/logout" class="<%= altFontColor %>">Log Out</a></li>
     </ul>
 
+    <ul id="nav-mobile" class="side-nav">
+      <li><a href="/developers" class="<%= altFontColor %>">Browse Developers</a></li>
+      <li><a href="/projects" class="<%= altFontColor %>">Browse Projects</a></li>
+      <li class="divider"></li>
+      <% if (currentUser) { %>
+        <li><a href="/users/<%= currentUser.id %>" class="<%= altFontColor %>">View Profile</a></li>
+        <li><a href="/users/<%= currentUser.id %>/edit" class="<%= altFontColor %>">Edit Profile</a></li>
+        <% if (currentUser && currentUser.userType === 'nonprofit') { %>
+          <li><a href="/projects/new" class="<%= altFontColor %>">Create Project</a></li>
+        <% } %>
+        <li><a href="/users/<%= currentUser.id %>/messages" class="<%= altFontColor %>">Messages</a></li>
+        <li class="divider"></li>
+        <li><a href="/sessions/logout" class="<%= altFontColor %>">Log Out</a></li>
+      <% } else { %>
+        <li><a href="/sessions/new" class="<%= altFontColor %>">Sign In</a></li>
+      <% } %>
+    </ul>
+
     <div class="navbar-fixed">
       <nav class="<%= mainColor %>" role="navigation">
         <div class="nav-wrapper container">
@@ -59,24 +77,6 @@
               </li>
             <% } else { %>
               <li><a href="/sessions/new" class="<%= fontColor %>">Sign In</a></li>
-            <% } %>
-          </ul>
-
-          <ul id="nav-mobile" class="side-nav">
-            <li><a href="/developers" class="<%= altFontColor %>">Browse Developers</a></li>
-            <li><a href="/projects" class="<%= altFontColor %>">Browse Projects</a></li>
-            <li class="divider"></li>
-            <% if (currentUser) { %>
-              <li><a href="/users/<%= currentUser.id %>" class="<%= altFontColor %>">View Profile</a></li>
-              <li><a href="/users/<%= currentUser.id %>/edit" class="<%= altFontColor %>">Edit Profile</a></li>
-              <% if (currentUser && currentUser.userType === 'nonprofit') { %>
-                <li><a href="/projects/new" class="<%= altFontColor %>">Create Project</a></li>
-              <% } %>
-              <li><a href="/users/<%= currentUser.id %>/messages" class="<%= altFontColor %>">Messages</a></li>
-              <li class="divider"></li>
-              <li><a href="/sessions/logout" class="<%= altFontColor %>">Log Out</a></li>
-            <% } else { %>
-              <li><a href="/sessions/new" class="<%= altFontColor %>">Sign In</a></li>
             <% } %>
           </ul>
           <a href="#" data-activates="nav-mobile" class="button-collapse <%= fontColor %>"><i class="material-icons">menu</i></a>
