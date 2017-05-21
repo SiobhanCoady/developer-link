@@ -51,7 +51,12 @@
             <li><a href="/projects" class="<%= fontColor %>">Browse Projects</a></li>
             <!-- Dropdown Trigger -->
             <% if (currentUser) { %>
-              <li><a class="dropdown-button <%= fontColor %>" href="#!" data-activates="dropdown1">User Options<i class="material-icons right">arrow_drop_down</i></a></li>
+              <li>
+                <a class="dropdown-button <%= fontColor %>" href="#!" data-activates="dropdown1">
+                  <img src="/images/<%= currentUser.avatar %>" class="icon-avatar">
+                  <%= currentUser.firstName %><i class="material-icons right">arrow_drop_down</i>
+                </a>
+              </li>
             <% } else { %>
               <li><a href="/sessions/new" class="<%= fontColor %>">Sign In</a></li>
             <% } %>
@@ -67,7 +72,7 @@
               <% if (currentUser && currentUser.userType === 'nonprofit') { %>
                 <li><a href="/projects/new" class="<%= altFontColor %>">Create Project</a></li>
               <% } %>
-              <li><a href="#!" class="<%= altFontColor %>">Messages</a></li>
+              <li><a href="/users/<%= currentUser.id %>/messages" class="<%= altFontColor %>">Messages</a></li>
               <li class="divider"></li>
               <li><a href="/sessions/logout" class="<%= altFontColor %>">Log Out</a></li>
             <% } else { %>
