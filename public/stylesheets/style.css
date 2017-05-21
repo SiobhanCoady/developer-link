@@ -69,6 +69,18 @@ footer.page-footer {
   width: auto;
 }
 
+.choose-avatar {
+  height: 200px;
+  width: auto;
+}
+
+.icon-avatar {
+  height: 40px;
+  width: auto;
+  padding-right: 5px;
+  vertical-align: middle;
+}
+
 #map {
   height: 400px;
 }
