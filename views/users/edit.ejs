@@ -140,22 +140,21 @@
             <label for="charity">Charity Types</label>
           </div>
         </div>
+
         <div class="row dev-options">
           <div class="input-field col s12 m12">
-            <select name="avatar" class="icons">
-              <option value="" disabled selected>Choose your avatar</option>
-
-              <% ['avatar1w.png', 'avatar2w.png', 'avatar3w.png', 'avatar4w.png', 'avatar5w.png', 'avatar1m.png', 'avatar2m.png', 'avatar3m.png', 'avatar4m.png', 'avatar5m.png', 'avatarneutral.png', 'avatarneutral2.png'].map((img) => { %>
-                <option value="<%= img %>"
-                  <% if (img === user.avatar) { %>
-                    selected
-                  <% } %>
-                    data-icon="/images/<%= img %>" class="left circle"><%= img %></option>
-              <% }) %>
-
-              </select>
-            <label for="avatar">Avatar</label>
+            Choose an avatar
           </div>
+          <% ['avatar1w.png', 'avatar2w.png', 'avatar3w.png', 'avatar4w.png', 'avatar5w.png', 'avatar1m.png', 'avatar2m.png', 'avatar3m.png', 'avatar4m.png', 'avatar5m.png', 'avatarneutral.png', 'avatarneutral2.png'].map((img) => { %>
+            <div class="input-field col s12 m4">
+              <input name="avatar" type="radio" id="<%= img %>" value="<%= img %>"
+                <% if (img === user.avatar) { %>
+                  checked
+                <% } %>
+                  />
+              <label for="<%= img %>"><img src="/images/<%= img %>" class="choose-avatar"></label>
+            </div>
+          <% }) %>
         </div>
 
       <% } %>
@@ -178,7 +177,7 @@
             <% if (type === user.charityType) { %>
               selected
             <% } %>
-              ><%= type %></option>
+              data-icon="/images/<%= type %>.png" class="left circle"><%= type %></option>
         <% }) %>
 
             </select>
