@@ -163,8 +163,13 @@
         <li>
           <p><%= review.body %></p>
           <p><%= review.reviewer.firstName %> <%= review.reviewer.lastName %></p>
-          <p><strong>Rating: </strong><%= review.rating %></p>
-          <p><strong>Created At: </strong><%= review.createdAt %></p>
+          <p>
+            <strong>Rating: </strong>
+            <% for (let i = 0; i < review.rating; i++) { %>
+              <i class="material-icons tiny">star</i>
+            <% } %>
+          </p>
+          <p><strong>Created At: </strong><span data-moment-format="LLL"><%= review.createdAt %></span></p>
           <hr>
         </li>
       <% } %>
