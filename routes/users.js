@@ -24,7 +24,7 @@ router.get('/new', function(req, res, next){
 });
 
 router.post('/', async function(req, res, next){
-  const {firstName, lastName, email, userType} = req.body;
+  const {firstName, lastName, email, userType, orgName, charityType} = req.body;
   const password = req.body.password;
   const passwordConfirmation = req.body.passwordConfirmation;
 
@@ -55,7 +55,9 @@ router.post('/', async function(req, res, next){
       lastName: lastName,
       email: email,
       password: await User.cryptPassword(password),
-      userType: userType
+      userType: userType,
+      orgName: orgName,
+      charityType: charityType
     })
     .then(function(user) {
       req.login(user, function(err){

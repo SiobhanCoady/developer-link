@@ -61,17 +61,20 @@ module.exports = {
         type: Sequelize.STRING
       },
       orgName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       charityType: {
-        type: Sequelize.ENUM( 'Animal',
-                              'Environmental',
-                              'International NGO',
-                              'Health',
-                              'Education',
-                              'Arts and Culture',
-                              ''
-                            )
+        type: Sequelize.ENUM(
+          'Animal',
+          'Environmental',
+          'International NGO',
+          'Health',
+          'Education',
+          'Arts and Culture',
+          ''
+        ),
+        allowNull: false
       },
       avatar: {
         type: Sequelize.STRING,
