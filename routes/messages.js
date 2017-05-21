@@ -67,6 +67,11 @@ router.get('/:id', function(req, res) {
       ])
     })
     .then(function([message, responses]) {
+      if (!message.hasBeenSeen && message.receiverId === req.user.id) {
+        message.update({ hasBeenSeen: true });
+        message.save;
+      }
+
       if (req.user) {
         res.render('messages/show', { message, responses });
       } else {
