@@ -81,6 +81,7 @@
       </div>
 
       <% if (user.userType === 'developer') { %>
+        <input type="hidden" name="userType" value="developer">
         <div class="row dev-options">
           <div class="input-field col s12">
             <input name="github" id="github" type="text" class="validate"
@@ -160,6 +161,7 @@
       <% } %>
 
       <% if (user.userType === 'nonprofit') { %>
+        <input type="hidden" name="userType" value="nonprofit">
         <div class="row np-options">
           <div class="input-field col s12">
             <input name="orgName" id="orgName" type="text" class="validate"

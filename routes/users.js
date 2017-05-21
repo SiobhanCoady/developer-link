@@ -247,7 +247,7 @@ router.patch('/:id', function(req, res, next) {
         linkedin: linkedin,
         orgName: orgName,
         charityType: charityType,
-        avatar: avatar
+        avatar: (userType === 'nonprofit' ? `${charityType}.png` : avatar)
       });
     })
     .then(function(user) {
