@@ -17,95 +17,149 @@
 <div class="container">
   <%# SHOW DEVELOPER %>
   <% if (user.userType === 'developer') { %>
-    <h1><%= user.firstName %> <%= user.lastName %></h1>
+    <div class="row dev-card card">
+      <div class="col s12 m5">
+        <img src="/images/<%= user.avatar %>" class="avatar-large">
+        <h3><%= user.firstName %> <%= user.lastName %></h3>
+        <p><%= user.description %></p>
+      </div>
+      <div class="col s12 m7 dev-stretch">
+        <div class="col s12 m12 dev-info">
+          Website: <a href="<%= user.website %>"><%= user.website %></a><br>
+          GitHub: <a href="<%= user.github %>"><%= user.github %></a><br>
+          LinkedIn: <a href="<%= user.linkedin %>"><%= user.linkedin %></a><br>
+          Country: <%= user.country %>
+          <p>Charity Types:
+            <% for (let tag of tags) { %>
+              <% if (tag.tagType === 'charityType') { %>
+                <div class="chip"><%= tag.name %></div>
+              <% } %>
+            <% } %>
+          </p>
 
-    <p><img src="/images/<%= user.avatar %>" class="avatar-large"></p>
+          <p>Technologies:
+            <% for (let tag of tags) { %>
+              <% if (tag.tagType === 'technology') { %>
+                <div class="chip"><%= tag.name %></div>
+              <% } %>
+            <% } %>
+          </p>
 
-    <p><%= user.description %></p>
-    <p>Email: <%= user.email %></p>
-    <p>Website: <%= user.website %></p>
-    <p>GitHub: <%= user.github %></p>
-    <p>LinkedIn: <%= user.linkedin %></p>
-    <p>Country: <%= user.country %></p>
+          <p>Languages:
+            <% for (let tag of tags) { %>
+              <% if (tag.tagType === 'language') { %>
+                <div class="chip"><%= tag.name %></div>
+              <% } %>
+            <% } %>
+          </p>
 
-    <p>Charity Types:
-      <% for (let tag of tags) { %>
-        <% if (tag.tagType === 'charityType') { %>
-          <div class="chip"><%= tag.name %></div>
-        <% } %>
-      <% } %>
-    </p>
+          <% if (currentUser && currentUser.id !== user.id) { %>
+            <div class="contact-button right">
+              <!-- Modal Trigger -->
+              <a class="waves-effect waves-light btn <%= mainColor %> <%= fontColor %>" href="#modal1">
+                Contact
+              </a>
+            </div>
+          <% } %>
+        </div>
+      </div>
 
-    <p>Technologies:
-      <% for (let tag of tags) { %>
-        <% if (tag.tagType === 'technology') { %>
-          <div class="chip"><%= tag.name %></div>
-        <% } %>
-      <% } %>
-    </p>
+    </div>
 
-    <p>Languages:
-      <% for (let tag of tags) { %>
-        <% if (tag.tagType === 'language') { %>
-          <div class="chip"><%= tag.name %></div>
-        <% } %>
-      <% } %>
-    </p>
 
   <%# SHOW NONPROFIT %>
   <% } else { %>
-    <h1><%= user.orgName %></h1>
+    <div class="row np-card card">
+      <div class="col s12 m5">
+        <img src="/images/<%= user.avatar %>" class="avatar-large">
+        <h3><%= user.orgName %></h3>
+        <p><%= user.description %></p>
+      </div>
+      <div class="col s12 m7 np-stretch">
+        <div class="col s12 m12 np-info">
+          Contact Name: <%= user.firstName %> <%= user.lastName %><br>
+          Website: <a href="<%= user.website %>"><%= user.website %></a><br>
+          Country: <%= user.country %>
+          <p>Charity Type: <span class="chip"><%= user.charityType %></span></p>
 
-    <p><%= user.description %></p>
-    <p>Email: <%= user.email %></p>
-    <p>Website: <%= user.website %></p>
-    <p>Country: <%= user.country %></p>
-    <p>Charity Type: <span class="chip"><%= user.charityType %></span></p>
-    <h3>Projects</h3>
-    <% if (projects.length > 0) { %>
-      <ul class="user-projects-list">
-        <% for (let project of projects) { %>
-          <% if (project.isHidden && currentUser && currentUser.id !== project.ownerId) { %>
-          <% } else if (project.isHidden && currentUser && currentUser.id === project.ownerId) { %>
-            <li>
-              <p><%= project.title %> - This project is hidden. Edit project to show.</p>
-              <p><%= project.description %></p>
-              <p>Deadline: <span data-moment-format="LL"><%= project.deadline %></span></p>
-              <p>GitHub: <%= project.github %></p>
-              <p>
-              <a class="waves-effect waves-teal btn" href="/projects/<%= project.id %>/edit">
-                Edit
+          <% if (currentUser && currentUser.id !== user.id) { %>
+            <div class="contact-button right">
+              <!-- Modal Trigger -->
+              <a class="waves-effect waves-light btn <%= mainColor %> <%= fontColor %>" href="#modal1">
+                Contact
               </a>
-              </p>
-              <hr>
-            </li>
-          <% } else { %>
-            <li>
-              <p><%= project.title %></p>
-              <p><%= project.description %></p>
-              <p>Deadline: <span data-moment-format="LL"><%= project.deadline %></span></p>
-              <p>GitHub: <%= project.github %></p>
-              <p>
-              <% if (currentUser && currentUser.id === project.ownerId) { %>
-                <a class="waves-effect waves-teal btn" href="/projects/<%= project.id %>/edit">
-                  Edit
-                </a>
-              <% } %>
-              </p>
-              <hr>
-            </li>
+            </div>
           <% } %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col s12 m12">
+        <h3>Projects</h3>
+
+        <% if (projects.length > 0) { %>
+          <div class="user-projects-list">
+            <% for (let project of projects) { %>
+              <% if (project.isHidden && currentUser && currentUser.id !== project.ownerId) { %>
+              <% } else if (project.isHidden && currentUser && currentUser.id === project.ownerId) { %>
+                <div class="card white">
+                  <div class="card-content black-text">
+                    <h4><%= project.title %></h4>
+                    <strong>This project is hidden. Edit project to show.</strong>
+                    <br><br><%= project.description %>
+                    <br><br>GitHub: <a href="<%= project.github %>"><%= project.github %></a>
+                    <br><br>Deadline: <span data-moment-format="LL"><%= project.deadline %></span>
+                    <div class="right">
+                      <a class="waves-effect waves-teal btn" href="/projects/<%= project.id %>/edit">
+                        Edit
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              <% } else { %>
+                <div class="card white">
+                  <div class="card-content black-text">
+                    <h4><%= project.title %></h4>
+                    <%= project.description %>
+                    <br><br>GitHub: <a href="<%= project.github %>"><%= project.github %></a>
+                    <br><br>Deadline: <span data-moment-format="LL"><%= project.deadline %></span>
+
+                    <br><br>Technologies:
+                      <br><% for (let tag of project.Tags) { %>
+                        <% if (tag.tagType === 'technology') { %>
+                          <div class="chip"><%= tag.name %></div>
+                        <% } %>
+                      <% } %>
+
+
+                    <br><br>Languages:
+                      <br><% for (let tag of project.Tags) { %>
+                        <% if (tag.tagType === 'language') { %>
+                          <div class="chip"><%= tag.name %></div>
+                        <% } %>
+                      <% } %>
+
+                    <% if (currentUser && currentUser.id === project.ownerId) { %>
+                      <div class="right">
+                        <a class="waves-effect waves-teal btn" href="/projects/<%= project.id %>/edit">
+                          Edit
+                        </a>
+                      </div>
+                    <% } %>
+                  </div>
+                </div>
+              <% } %>
+            <% } %>
+          </div>
+        <% } else { %>
+          <p>This nonprofit does not currently have any projects listed.</p>
         <% } %>
-      </ul>
-    <% } else { %>
-      <p>This nonprofit does not currently have any projects listed.</p>
-    <% } %>
+      </div>
+    </div>
 
-  <% } %>
 
-  <% if (currentUser && currentUser.id !== user.id) { %>
-    <!-- Modal Trigger -->
-    <a class="waves-effect waves-light btn" href="#modal1">Contact</a>
   <% } %>
 
   <!-- Modal Structure -->
@@ -124,59 +178,77 @@
       </p>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-      <button class="btn waves-effect waves-light" id="send-message" type="submit" name="action">Send
+      <a href="#!" class="modal-action modal-close waves-effect waves-<%= mainColor %> btn-flat">Cancel</a>
+      <button class="btn waves-effect waves-light  <%= mainColor %> <%= fontColor %>" id="send-message" type="submit" name="action">Send
       </button>
     </div>
   </div>
 
-  <hr>
 
-  <% if (currentUser && currentUser.id !== user.id) { %>
-    <h3>Leave a Review</h3>
 
-    <div class="row">
-      <form class="col s12" action="/users/<%= user.id %>/reviews" method="post">
-        <div class="row">
-          <div class="input-field col s12">
-            <textarea name="body" id="body" class="materialize-textarea"></textarea>
-            <label for="body">Body</label>
-          </div>
+
+  <div class="row">
+    <div class="col s12 m6">
+      <h3>Reviews</h3>
+
+      <% if (reviews.length > 0) { %>
+        <div class="reviews-list">
+          <% for (let review of reviews) { %>
+            <div class="card white">
+              <div class="card-content black-text">
+                  <% for (let i = 0; i < review.rating; i++) { %>
+                    <i class="material-icons tiny">star</i>
+                  <% } %>
+                <br><br><%= review.body %>
+                <br><br><%= review.reviewer.firstName %> <%= review.reviewer.lastName %>
+                <br><br><em><span data-moment-format="LLL"><%= review.createdAt %></span></em>
+              </div>
+            </div>
+          <% } %>
         </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input name="rating" id="rating" type="number" min="1" max="5" step="1" class="validate">
-            <label for="rating">Rating</label>
-          </div>
-        </div>
-        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-        </button>
-      </form>
-    </div>
-  <% } %>
-
-  <h3>Reviews</h3>
-
-  <% if (reviews.length > 0) { %>
-    <ul class="reviews-list">
-      <% for (let review of reviews) { %>
-        <li>
-          <p><%= review.body %></p>
-          <p><%= review.reviewer.firstName %> <%= review.reviewer.lastName %></p>
-          <p>
-            <strong>Rating: </strong>
-            <% for (let i = 0; i < review.rating; i++) { %>
-              <i class="material-icons tiny">star</i>
-            <% } %>
-          </p>
-          <p><strong>Created At: </strong><span data-moment-format="LLL"><%= review.createdAt %></span></p>
-          <hr>
-        </li>
+      <% } else { %>
+        <p>This account does not currently have any reviews.</p>
       <% } %>
-    </ul>
-  <% } else { %>
-    <p>This account does not currently have any reviews.</p>
-  <% } %>
+    </div>
+
+
+
+
+    <% if (currentUser && currentUser.id !== user.id) { %>
+      <div class="col s12 m6">
+        <h3>Leave a Review</h3>
+
+        <div class="card white">
+          <div class="card-content black-text">
+            <div class="row">
+              <form class="col s12" action="/users/<%= user.id %>/reviews" method="post">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <textarea name="body" id="body" class="materialize-textarea"></textarea>
+                    <label for="body">Body</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input name="rating" id="rating" type="number" min="1" max="5" step="1" class="validate">
+                    <label for="rating">Rating (1-5)</label>
+                  </div>
+                </div>
+                <button class="btn waves-effect waves-light right <%= mainColor %> <%= fontColor %>" type="submit" name="action">Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% } %>
+
+  </div>
 </div>
+
+<footer class="page-footer <%= mainColor %>">
+  <div class="container my-footer">
+  </div>
+</footer>
 
 <%- include('../partials/footer') %>

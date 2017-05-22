@@ -65,8 +65,10 @@ footer.page-footer {
 }
 
 .avatar-large {
-  height: 200px;
+  height: 150px;
   width: auto;
+  margin-top: 30px;
+  margin-left: 20px;
 }
 
 .choose-avatar {
@@ -83,4 +85,47 @@ footer.page-footer {
 
 #map {
   height: 400px;
+}
+
+.dev-card {
+  margin: 25px 0px !important;
+  padding: 10px;
+  min-height: 400px;
+  width: 100%;
+  background-color: #b39ddb;
+  display: flex;
+}
+
+.np-card {
+  margin: 25px 0px !important;
+  padding: 10px;
+  min-height: 400px;
+  width: 100%;
+  background-color: #80deea;
+  display: flex;
+}
+
+.dev-stretch, .np-stretch {
+  align-items: stretch;
+  display: flex;
+}
+
+.dev-info, .np-info {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  align-items: stretch;
+  padding: 15px !important;
+  background-color: white;
+  position: relative;
+}
+
+.my-footer {
+  height: 40px;
+}
+
+.contact-button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 15px;
 }

@@ -90,6 +90,7 @@ router.get('/:id', function(req, res) {
         user,
         Review.findAll({
           where: { reviewedId: user.id },
+          order: [['createdAt', 'DESC']],
           include: [
             { model: User, as: 'reviewer' }
           ]
@@ -97,7 +98,10 @@ router.get('/:id', function(req, res) {
         user.getTags(),
         Project.findAll({
           where: { ownerId: user.id },
-          order: [['createdAt', 'DESC']]
+          order: [['createdAt', 'DESC']],
+          include: [
+            {model: Tag, as: 'Tags'}
+          ]
         })
       ])
     })
