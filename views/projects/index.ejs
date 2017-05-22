@@ -84,7 +84,7 @@
     <% for (let project of projects) { %>
       <li>
         <div class="collapsible-header">
-          <i class="material-icons">web</i>
+          <img class="browse-avatar" src="/images/<%= project.owner.avatar %>">
           <%= project.title %>
         </div>
         <div class="collapsible-body">
@@ -142,7 +142,8 @@
     var center = {lat: 20, lng: 0};
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 2,
-      center: center
+      center: center,
+      scrollwheel: false
     });
     for (let project of <%- JSON.stringify(projectCoords) %>) {
       var marker = new google.maps.Marker({

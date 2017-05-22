@@ -67,10 +67,10 @@
         </div>
 
       </div>
-      <button class="btn waves-effect waves-light"
+      <button class="btn waves-effect waves-light yellow lighten-2 black-text"
         type="submit" name="action">Submit
       </button>
-      <button class="btn waves-effect waves-light reset-form"
+      <button class="btn waves-effect waves-light yellow lighten-2 black-text reset-form"
         type="reset" name="action">Reset
       </button>
     </form>
@@ -83,11 +83,11 @@
   <ul class="collapsible popout developers-list" data-collapsible="expandable">
     <% for (let developer of developers) { %>
       <li>
-        <div class="collapsible-header"><i class="material-icons">perm_identity</i><%= developer.firstName %> <%= developer.lastName %></div>
+        <div class="collapsible-header"><img class="browse-avatar" src="/images/<%= developer.avatar %>"><%= developer.firstName %> <%= developer.lastName %></div>
         <div class="collapsible-body">
           <span><%= developer.description %></span>
           <div class="right-align">
-            <a class="waves-effect waves-teal btn-flat" href="/users/<%= developer.id %>">
+            <a class="waves-effect waves-<%= mainColor %> btn-flat" href="/users/<%= developer.id %>">
               Profile
             </a>
           </div>
@@ -108,7 +108,8 @@
     var center = {lat: 20, lng: 0};
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 2,
-      center: center
+      center: center,
+      scrollwheel: false
     });
     for (let dev of <%- JSON.stringify(devCoords) %>) {
       var marker = new google.maps.Marker({
