@@ -83,6 +83,13 @@ footer.page-footer {
   vertical-align: middle;
 }
 
+.browse-avatar {
+  height: 30px;
+  width: auto;
+  vertical-align: middle;
+  padding-right: 10px;
+}
+
 #map {
   height: 400px;
 }
@@ -128,4 +135,84 @@ footer.page-footer {
   bottom: 0;
   right: 0;
   padding: 15px;
+}
+
+/* label color */
+.input-field label {
+ color: #bdbdbd;
+}
+/* label focus color */
+.input-field input[type=text]:focus + label {
+ color: #bdbdbd;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+ border-bottom: 1px solid #bdbdbd;
+ box-shadow: 0 1px 0 0 #000;
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+ color: #bdbdbd;
+}
+
+/* label focus color */
+.input-field input[type=email]:focus + label {
+ color: #bdbdbd;
+}
+/* label underline focus color */
+.input-field input[type=email]:focus {
+ border-bottom: 1px solid #bdbdbd;
+ box-shadow: 0 1px 0 0 #000;
+}
+
+/* label focus color */
+.input-field input[type=password]:focus + label {
+ color: #bdbdbd;
+}
+/* label underline focus color */
+.input-field input[type=password]:focus {
+ border-bottom: 1px solid #bdbdbd;
+ box-shadow: 0 1px 0 0 #000;
+}
+
+/* label focus color */
+.input-field textarea:focus + label {
+ color: #bdbdbd !important;
+}
+/* label underline focus color */
+.input-field textarea:focus {
+ border-bottom: 1px solid #bdbdbd !important;
+ box-shadow: 0 1px 0 0 #000 !important;
+}
+
+/* label focus color */
+.input-field select:focus + label {
+ color: #bdbdbd !important;
+}
+.dropdown-content li>a, .dropdown-content li>span {
+ color: #616161 !important;
+}
+.input-field .dropdown-content input[type="checkbox"] + label {
+  color: #616161 !important;
+}
+.input-field [type="checkbox"]:checked+label:before {
+  border-right: 2px solid #616161;
+  border-bottom: 2px solid #616161;
+}
+[type="checkbox"]:checked+label:before {
+  border-right: 2px solid #616161;
+  border-bottom: 2px solid #616161;
+}
+/* label underline focus color */
+.input-field select:focus {
+ border-bottom: 1px solid #bdbdbd !important;
+ box-shadow: 0 1px 0 0 #000 !important;
+}
+
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after {
+  border: 2px solid #616161;
+}
+
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after {
+  background-color: #616161;
 }
