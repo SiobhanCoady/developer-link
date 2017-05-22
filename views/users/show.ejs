@@ -111,8 +111,24 @@
                     <br><br><%= project.description %>
                     <br><br>GitHub: <a href="<%= project.github %>"><%= project.github %></a>
                     <br><br>Deadline: <span data-moment-format="LL"><%= project.deadline %></span>
-                    <div class="right">
-                      <a class="waves-effect waves-teal btn" href="/projects/<%= project.id %>/edit">
+
+                    <br><br>Technologies:
+                      <br><% for (let tag of project.Tags) { %>
+                        <% if (tag.tagType === 'technology') { %>
+                          <div class="chip"><%= tag.name %></div>
+                        <% } %>
+                      <% } %>
+
+
+                    <br><br>Languages:
+                      <br><% for (let tag of project.Tags) { %>
+                        <% if (tag.tagType === 'language') { %>
+                          <div class="chip"><%= tag.name %></div>
+                        <% } %>
+                      <% } %>
+
+                      <div class="right">
+                      <a class="waves-effect waves-<%= mainColor %> btn <%= mainColor %> <%= fontColor %>" href="/projects/<%= project.id %>/edit">
                         Edit
                       </a>
                     </div>
@@ -143,7 +159,7 @@
 
                     <% if (currentUser && currentUser.id === project.ownerId) { %>
                       <div class="right">
-                        <a class="waves-effect waves-teal btn" href="/projects/<%= project.id %>/edit">
+                        <a class="waves-effect waves-<%= mainColor %> btn <%= mainColor %> <%= fontColor %>" href="/projects/<%= project.id %>/edit">
                           Edit
                         </a>
                       </div>
