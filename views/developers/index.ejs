@@ -1,4 +1,19 @@
+<% let mainColor = 'white'; %>
+<% let fontColor = 'black-text'; %>
+<% let altFontColor = 'black-text'; %>
+
+<% if (currentUser && currentUser.userType === 'developer') { %>
+  <% mainColor = 'deep-purple'; %>
+  <% fontColor = 'white-text' %>
+  <% altFontColor = 'deep-purple-text' %>
+<% } else if (currentUser && currentUser.userType === 'nonprofit') { %>
+  <% mainColor = 'cyan'; %>
+  <% fontColor = 'white-text' %>
+  <% altFontColor = 'cyan-text' %>
+<% } %>
+
 <%- include('../partials/header') %>
+
 <div class="container">
 
   <h1>Search Developers</h1>
@@ -82,6 +97,11 @@
   </ul>
 
 </div>
+
+<footer class="page-footer <%= mainColor %>">
+  <div class="container my-footer">
+  </div>
+</footer>
 
 <script>
   function initMap() {
