@@ -93,34 +93,12 @@
         <div class="collapsible-body">
           <span><%= project.description %></span>
           <p>Deadline: <span data-moment-format="LL"><%= project.deadline %></span></p>
-          <p>GitHub: <%= project.github %></p>
 
-          <p>Charity Type:
-            <% if (project.owner) { %>
-              <div class="chip"><%= project.owner.charityType %></div>
-            <% } %>
-          </p>
-
-          <p>Technologies:
-            <% for (let tag of project.Tags) { %>
-              <% if (tag.tagType === 'technology') { %>
-                <div class="chip"><%= tag.name %></div>
-              <% } %>
-            <% } %>
-          </p>
-
-          <p>Languages:
-            <% for (let tag of project.Tags) { %>
-              <% if (tag.tagType === 'language') { %>
-                <div class="chip"><%= tag.name %></div>
-              <% } %>
-            <% } %>
-          </p>
-
-          <p>Non-profit:
+          <p><strong>Non-profit:
             <% if (project.owner) { %>
               <%= project.owner.orgName %>
             <% } %>
+            </strong>
           </p>
 
           <div class="right-align">
