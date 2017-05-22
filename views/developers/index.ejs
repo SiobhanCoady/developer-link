@@ -1,15 +1,18 @@
 <% let mainColor = 'white'; %>
 <% let fontColor = 'black-text'; %>
 <% let altFontColor = 'black-text'; %>
+<% let searchColor = 'indigo lighten-2' %>
 
 <% if (currentUser && currentUser.userType === 'developer') { %>
   <% mainColor = 'deep-purple'; %>
   <% fontColor = 'white-text' %>
   <% altFontColor = 'deep-purple-text' %>
+  <% searchColor = 'deep-purple' %>
 <% } else if (currentUser && currentUser.userType === 'nonprofit') { %>
   <% mainColor = 'cyan'; %>
   <% fontColor = 'white-text' %>
   <% altFontColor = 'cyan-text' %>
+  <% searchColor = 'cyan' %>
 <% } %>
 
 <%- include('../partials/header') %>
@@ -67,10 +70,10 @@
         </div>
 
       </div>
-      <button class="btn waves-effect waves-light yellow lighten-2 black-text"
+      <button class="btn waves-effect waves-light <%= searchColor %> <%= fontColor %>"
         type="submit" name="action">Submit
       </button>
-      <button class="btn waves-effect waves-light yellow lighten-2 black-text reset-form"
+      <button class="btn waves-effect waves-light <%= searchColor %> <%= fontColor %> reset-form"
         type="reset" name="action">Reset
       </button>
     </form>

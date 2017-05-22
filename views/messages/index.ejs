@@ -28,7 +28,7 @@
             From: <%= message.sender.firstName %> <%= message.sender.lastName %>
             <br><span data-moment-format="LLL"><%= message.createdAt %></span>
           </p>
-          <a href="/users/<%= currentUser.id %>/messages/<%= message.id %>" class="secondary-content">
+          <a href="/users/<%= currentUser.id %>/messages/<%= message.id %>" class="secondary-content <%= altFontColor %>">
             <i class="material-icons">
               <% if (message.hasBeenSeen) { %>
                 chat_bubble_outline
@@ -56,7 +56,7 @@
             To: <%= message.receiver.firstName %> <%= message.receiver.lastName %>
             <br><span data-moment-format="LLL"><%= message.createdAt %></span>
           </p>
-          <a href="/users/<%= currentUser.id %>/messages/<%= message.id %>" class="secondary-content">
+          <a href="/users/<%= currentUser.id %>/messages/<%= message.id %>" class="secondary-content <%= altFontColor %>">
             <i class="material-icons">
               <% if (!message.hasBeenSeen && currentUser.id === message.receiverId) { %>
                 chat_bubble
