@@ -7,12 +7,6 @@ $(document).ready(function() {
   $('select').material_select();
   $('.modal').modal();
 
-  // if ($('input:radio').hasClass('dev-checked')) {
-  //   $('.dev-options').removeClass('hidden');
-  // } else if ($('input:radio').hasClass('np-checked')) {
-  //   $('.np-options').removeClass('hidden');
-  // }
-
   // format moment dates
   $("[data-moment-format]").each((i, el) => {
     const format = $(el).data("moment-format")
@@ -33,13 +27,3 @@ $(document).ready(function() {
   })
 
 });
-
-// $('#developer').on('click', function(event) {
-//   $('.dev-options').removeClass('hidden');
-//   $('.np-options').addClass('hidden');
-// });
-//
-// $('#nonprofit').on('click', function(event) {
-//   $('.np-options').removeClass('hidden');
-//   $('.dev-options').addClass('hidden');
-// });
