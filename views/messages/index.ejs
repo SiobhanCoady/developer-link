@@ -25,7 +25,7 @@
         <li class="collection-item avatar">
           <img src="/images/<%= message.sender.avatar %>" class="circle">
           <p>
-            From: <%= message.sender.firstName %> <%= message.sender.lastName %>
+            From: <a href="/users/<%= message.sender.id %>"><%= message.sender.firstName %> <%= message.sender.lastName %></a>
             <br><span data-moment-format="LLL"><%= message.createdAt %></span>
           </p>
           <a href="/users/<%= currentUser.id %>/messages/<%= message.id %>" class="secondary-content <%= altFontColor %>">
@@ -53,7 +53,7 @@
         <li class="collection-item avatar">
           <img src="/images/<%= message.receiver.avatar %>" class="circle">
           <p>
-            To: <%= message.receiver.firstName %> <%= message.receiver.lastName %>
+            To: <a href="/users/<%= message.receiver.id %>"><%= message.receiver.firstName %> <%= message.receiver.lastName %></a>
             <br><span data-moment-format="LLL"><%= message.createdAt %></span>
           </p>
           <a href="/users/<%= currentUser.id %>/messages/<%= message.id %>" class="secondary-content <%= altFontColor %>">
