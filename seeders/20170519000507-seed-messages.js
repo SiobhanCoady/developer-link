@@ -5,11 +5,17 @@ const faker = require('faker');
 
 const messages = Array
   .from({length: 40})
-  .map(function() {
-    return Message.create({
-      senderId: Math.floor(Math.random() * 10) + 1,
-      receiverId: Math.floor(Math.random() * 10) + 1,
-      body: faker.hacker.phrase(),
+  .map(async function() {
+    let senderId = await Math.floor(Math.random() * 20) + 1;
+    let receiverId = await Math.floor(Math.random() * 20) + 1;
+    if (senderId === receiverId) {
+      receiverId++;
+    }
+
+    return await Message.create({
+      senderId: senderId,
+      receiverId: receiverId,
+      body: faker.lorem.paragraph(),
       hasBeenSeen: false
     })
     .catch(function(error) { console.log('Error creating message') });
