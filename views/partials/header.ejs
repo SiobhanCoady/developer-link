@@ -84,10 +84,22 @@
       </nav>
     </div>
 
-    <%# if (info) { %>
-      <%= info %>
-    <%# } else if (error) { %>
-      <%= error %>
-    <%# } else if (success) { %>
-      <%= success %>
-    <%# } %>
+    <% if (info) { %>
+      <div class="flash-message valign-wrapper yellow lighten-4">
+        <h6 class="center-align">
+          <%= info %>
+        </h6>
+      </div>
+    <% } else if (error) { %>
+      <div class="flash-message valign-wrapper red lighten-4">
+        <h6 class="center-align">
+          <%= error %>
+        </h6>
+      </div>
+    <% } else if (success) { %>
+      <div class="flash-message valign-wrapper blue lighten-4">
+        <h6 class="center-align">
+          <%= success %>
+        </h6>
+      </div>
+    <% } %>

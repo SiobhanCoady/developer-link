@@ -226,3 +226,11 @@ footer.page-footer {
 [type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after {
   background-color: #616161;
 }
+
+.flash-message {
+  height: 50px;
+  width: 100%;
+  margin: 20px 0px;
+  display: flex;
+  justify-content: center;
+}
