@@ -7,11 +7,14 @@ router.get('/new', function(req, res, next){
   res.render('sessions/new', {errors: [], user: {}});
 });
 
-router.post('/', passport.authenticate('local', { successRedirect: '/projects',
-                                   failureRedirect: '/sessions/new',
-                                   successFlash: 'You\'re logged in',
-                                   failureFlash: true })
-                                    );
+router.post('/', passport.authenticate(
+  'local', {
+    successRedirect: '/projects',
+    failureRedirect: '/sessions/new',
+    successFlash: 'You\'re logged in',
+    failureFlash: true
+  })
+);
 
 router.get('/logout', function(req, res){
   req.flash('info', 'You\'re logged out');

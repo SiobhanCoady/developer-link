@@ -26,4 +26,25 @@ $(document).ready(function() {
     $('#send-message-form').submit();
   })
 
+  // $('.message-reply-form').on('submit', function(event) {
+  //   event.preventDefault();
+  //   $('.rmessage').append(`
+  //     <div class="card white">
+  //       <div class="card-content black-text">
+  //         <div class="row">
+  //           <div class="col s1">
+  //             <img src="/images/${currentUser.avatar}" class="circle icon-avatar">
+  //           </div>
+  //           <div class="col s11">
+  //             <strong>From: <a href="/users/${currentUser.id}">${currentUser.firstName} ${currentUser.lastName}</a></strong>
+  //             <br><br>${$('textarea').val()}
+  //             <br><br><em>Date: <span data-moment-format="LLL">${$.now()}</span></em>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   `)
+  //   $(.message-reply-form textarea).val('');
+  // });
+
 });

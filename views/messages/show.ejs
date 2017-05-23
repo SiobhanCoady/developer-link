@@ -70,7 +70,7 @@
     <div class="card white">
       <div class="card-content black-text">
         <div class="row">
-          <form class="col s12" action="/users/<%= currentUser.id %>/messages/<%= message.id %>/responses" method="post">
+          <form class="col s12 message-reply-form" action="/users/<%= currentUser.id %>/messages/<%= message.id %>/responses" method="post">
             <div class="row">
               <div class="input-field col s12">
                 <textarea name="body" id="body" class="materialize-textarea"></textarea>
