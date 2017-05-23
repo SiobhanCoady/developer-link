@@ -351,7 +351,7 @@ const users = [
       userType: 'nonprofit',
       github: '',
       linkedin: '',
-      orgName: 'Circus Animal Rehabilitation Institute',
+      orgName: 'Circus Animal Rehab Institute',
       charityType: 'Animal',
       avatar: 'Animal.png'
     }, {
