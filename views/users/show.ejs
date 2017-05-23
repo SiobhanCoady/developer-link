@@ -216,7 +216,7 @@
                     <i class="material-icons tiny">star</i>
                   <% } %>
                 <br><br><%= review.body %>
-                <br><br><%= review.reviewer.firstName %> <%= review.reviewer.lastName %>
+                <br><br><a href="/users/<%= review.reviewer.id %>"><%= review.reviewer.firstName %> <%= review.reviewer.lastName %></a>
                 <br><br><em><span data-moment-format="LLL"><%= review.createdAt %></span></em>
               </div>
             </div>
