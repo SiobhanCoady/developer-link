@@ -70,12 +70,18 @@
   <%# SHOW NONPROFIT %>
   <% } else { %>
     <div class="row np-card card">
-      <div class="col s12 m5">
-        <img src="/images/<%= user.avatar %>" class="avatar-large">
-        <h3><%= user.orgName %></h3>
+      <div class="col s12 m6">
+        <div class="row">
+          <div class="col s6">
+            <img src="/images/<%= user.avatar %>" class="avatar-large">
+          </div>
+          <div class="col s6">
+            <h3><%= user.orgName %></h3>
+          </div>
+        </div>
         <p><%= user.description %></p>
       </div>
-      <div class="col s12 m7 np-stretch">
+      <div class="col s12 m6 np-stretch">
         <div class="col s12 m12 np-info">
           Contact Name: <%= user.firstName %> <%= user.lastName %><br>
           Website: <a href="<%= user.website %>"><%= user.website %></a><br>
