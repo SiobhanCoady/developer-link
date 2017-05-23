@@ -176,6 +176,16 @@ footer.page-footer {
 }
 
 /* label focus color */
+.input-field input[type=number]:focus + label {
+ color: #bdbdbd;
+}
+/* label underline focus color */
+.input-field input[type=number]:focus {
+ border-bottom: 1px solid #bdbdbd;
+ box-shadow: 0 1px 0 0 #000;
+}
+
+/* label focus color */
 .input-field textarea:focus + label {
  color: #bdbdbd !important;
 }
