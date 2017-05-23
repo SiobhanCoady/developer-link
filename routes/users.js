@@ -15,7 +15,7 @@ var rp = require('request-promise');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.redirect('/');
 });
 
 router.get('/new', function(req, res, next){
