@@ -1,3 +1,11 @@
+function showRating(rating) {
+  let string = '';
+  for (let i = 0; i < rating; i++) {
+    string += `<i class="material-icons tiny">star</i>`;
+  }
+  return string;
+}
+
 $(document).ready(function() {
   $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
@@ -52,6 +60,34 @@ $(document).ready(function() {
           </div>
           `)
       $('.message-reply-form textarea').val('');
+    });
+  });
+
+  $('.review-form').on('submit', function(event) {
+    event.preventDefault();
+    const payload = {
+      body: $('#review-body').val(),
+      rating: $('#review-rating').val()
+    };
+    const userID = $('.review-id').attr('id');
+    return $.ajax({
+      type: "POST",
+      url: `/users/${userID}/reviews`,
+      data: payload
+    }).then((data, err) => {
+      $('.reviews-list').has('p').html('');
+      $('.reviews-list').prepend(`
+        <div class="card white">
+          <div class="card-content black-text">
+            ${showRating(payload.rating)}
+            <br><br>${payload.body}
+            <br><br><a href="/users/${data.reviewer.id}">${data.reviewer.firstName} ${data.reviewer.lastName}</a>
+            <br><br><em>${data.timestamp}</em>
+          </div>
+        </div>
+      `)
+      $('#review-body').val('');
+      $('#review-rating').val('');
     });
   });
 

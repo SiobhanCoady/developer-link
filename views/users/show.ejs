@@ -14,7 +14,7 @@
 
 <%- include('../partials/header') %>
 
-<div class="container">
+<div id="<%= user.id %>" class="review-id container">
   <%# SHOW DEVELOPER %>
   <% if (user.userType === 'developer') { %>
     <div class="row dev-card card">
@@ -213,8 +213,8 @@
     <div class="col s12 m6">
       <h3>Reviews</h3>
 
-      <% if (reviews.length > 0) { %>
-        <div class="reviews-list">
+      <div class="reviews-list">
+        <% if (reviews.length > 0) { %>
           <% for (let review of reviews) { %>
             <div class="card white">
               <div class="card-content black-text">
@@ -227,10 +227,10 @@
               </div>
             </div>
           <% } %>
-        </div>
-      <% } else { %>
-        <p>This account does not currently have any reviews.</p>
-      <% } %>
+        <% } else { %>
+          <p>This account does not currently have any reviews.</p>
+        <% } %>
+      </div>
     </div>
 
 
@@ -243,17 +243,17 @@
         <div class="card white">
           <div class="card-content black-text">
             <div class="row">
-              <form class="col s12" action="/users/<%= user.id %>/reviews" method="post">
+              <form class="col s12 review-form">
                 <div class="row">
                   <div class="input-field col s12">
-                    <textarea name="body" id="body" class="materialize-textarea"></textarea>
-                    <label for="body">Body</label>
+                    <textarea name="body" id="review-body" class="materialize-textarea"></textarea>
+                    <label for="review-body">Body</label>
                   </div>
                 </div>
                 <div class="row">
                   <div class="input-field col s12">
-                    <input name="rating" id="rating" type="number" min="1" max="5" step="1" class="validate">
-                    <label for="rating">Rating (1-5)</label>
+                    <input name="rating" id="review-rating" type="number" min="1" max="5" step="1" class="validate">
+                    <label for="review-rating">Rating (1-5)</label>
                   </div>
                 </div>
                 <button class="btn waves-effect waves-light right <%= mainColor %> <%= fontColor %>" type="submit" name="action">Submit
