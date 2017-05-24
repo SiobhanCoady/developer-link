@@ -197,7 +197,7 @@ footer.page-footer {
 .input-field select:focus + label {
  color: #bdbdbd !important;
 }
-.dropdown-content li>a, .dropdown-content li>span {
+.dropdown-content li>span {
  color: #616161 !important;
 }
 .input-field .dropdown-content input[type="checkbox"] + label {
