@@ -32,6 +32,18 @@ $(document).ready(function() {
 
   $('#send-message').on('click', function(event) {
     $('#send-message-form').submit();
+    // $('#send-message-form').submit(function(e) {
+    //   // e.preventDefault();
+    //   const payload = {body: $('#new-message-body').val()};
+    //   const userID = $('.review-id').attr('id');
+    //   return $.ajax({
+    //     type: "POST",
+    //     url: `/users/${userID}/messages`,
+    //     data: payload
+    //   }).then((data, err) => {
+    //     $('#new-message-body').val('');
+    //   })
+    // });
   })
 
   $('.message-reply-form').on('submit', function(event) {

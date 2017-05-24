@@ -8,7 +8,6 @@ const moment = require('moment');
 // Responses#create
 router.post('/', function(req, res) {
   const messageId = req.params.messageId;
-  console.log('params', req.params, 'body', req.body)
   Response
     .create({
       messageId: messageId,
