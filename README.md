@@ -1,4 +1,4 @@
-# developer-link
+# Developer Link
 A Node app for allowing volunteer developers and nonprofits to connect with one another
 
 <img width="1280" alt="search-projects" src="https://cloud.githubusercontent.com/assets/26069560/26417824/14b86c60-406f-11e7-8ba5-a82f6c6b73f2.png">
