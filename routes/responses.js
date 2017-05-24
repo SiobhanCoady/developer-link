@@ -8,6 +8,7 @@ const moment = require('moment');
 // Responses#create
 router.post('/', function(req, res) {
   const messageId = req.params.messageId;
+  console.log('params', req.params, 'body', req.body)
   Response
     .create({
       messageId: messageId,
@@ -15,7 +16,13 @@ router.post('/', function(req, res) {
       body: req.body.body,
       hasBeenSeen: false
     })
-    .then(function() { res.redirect(`/users/${req.user.id}/messages/${messageId}`) })
+    // .then(function() { res.redirect(`/users/${req.user.id}/messages/${messageId}`) })
+    .then(function() { res.send(
+      {
+        sender: req.user,
+        timestamp: moment().format('LLL')
+      })
+    })
 })
 
 module.exports = router;

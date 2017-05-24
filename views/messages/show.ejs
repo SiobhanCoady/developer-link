@@ -17,7 +17,7 @@
 
 <%- include('../partials/header') %>
 
-<div class="container">
+<div id="<%= currentUser.id %>" class="message-id container">
 
   <div class="row">
     <div class="col s12">
@@ -70,11 +70,11 @@
     <div class="card white">
       <div class="card-content black-text">
         <div class="row">
-          <form class="col s12 message-reply-form" action="/users/<%= currentUser.id %>/messages/<%= message.id %>/responses" method="post">
+          <form id="<%= message.id %>"class="col s12 message-reply-form">
             <div class="row">
               <div class="input-field col s12">
-                <textarea name="body" id="body" class="materialize-textarea"></textarea>
-                <label for="body">Body</label>
+                <textarea name="body" id="response-body" class="materialize-textarea"></textarea>
+                <label for="response-body">Body</label>
               </div>
             </div>
             <button class="btn waves-effect waves-light <%= mainColor %> <%= fontColor %>" type="submit" name="action">Send
