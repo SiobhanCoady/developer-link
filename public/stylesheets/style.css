@@ -20,7 +20,7 @@ p {
 }
 
 .parallax-container {
-  min-height: 640px;
+  min-height: 700px;
   line-height: 0;
   height: auto;
   color: rgba(255,255,255,.9);
@@ -100,6 +100,7 @@ footer.page-footer {
   width: 100%;
   background-color: #b39ddb;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .np-card {
@@ -108,6 +109,7 @@ footer.page-footer {
   width: 100%;
   background-color: #80deea;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .dev-stretch, .np-stretch {
@@ -120,6 +122,7 @@ footer.page-footer {
   margin-bottom: 10px;
   align-items: stretch;
   padding: 15px !important;
+  padding-bottom: 50px !important;
   background-color: white;
   position: relative;
 }
