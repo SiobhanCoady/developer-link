@@ -59,10 +59,10 @@ $(document).ready(function() {
         <div class="card white">
           <div class="card-content black-text">
             <div class="row">
-              <div class="col s1">
+              <div class="col s2 m1">
                 <img src="/images/${data.sender.avatar}" class="circle icon-avatar">
               </div>
-              <div class="col s11">
+              <div class="col s10 m11">
                 <strong>From: <a href="/users/${data.sender.id}">${data.sender.firstName} ${data.sender.lastName}</a></strong>
                 <br><br>${payload.body}
                   <br><br><em>Date: ${data.timestamp}</em>

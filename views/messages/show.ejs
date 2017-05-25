@@ -28,10 +28,10 @@
         <div class="card white">
           <div class="card-content black-text">
             <div class="row">
-              <div class="col s1">
+              <div class="col s2 m1">
                 <img src="/images/<%= message.sender.avatar %>" class="circle icon-avatar">
               </div>
-              <div class="col s11">
+              <div class="col s10 m11">
                 <strong>From: <a href="/users/<%= message.sender.id %>"><%= message.sender.firstName %> <%= message.sender.lastName %></a></strong>
                 <br><br><%= message.body %>
                 <br><br><em>Date: <span data-moment-format="LLL"><%= message.createdAt %></span></em>
@@ -47,10 +47,10 @@
             <div class="card white">
               <div class="card-content black-text">
                 <div class="row">
-                  <div class="col s1">
+                  <div class="col s2 m1">
                     <img src="/images/<%= response.sender.avatar %>" class="circle icon-avatar">
                   </div>
-                  <div class="col s11">
+                  <div class="col s10 m11">
                     <strong>From: <a href="/users/<%= response.sender.id %>"><%= response.sender.firstName %> <%= response.sender.lastName %></a></strong>
                     <br><br><%= response.body %>
                     <br><br><em>Date: <span data-moment-format="LLL"><%= response.createdAt %></span></em>
